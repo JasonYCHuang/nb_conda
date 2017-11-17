@@ -20,25 +20,28 @@ define(function(require) {
         }
     }
 
+    function appendPage(env_html, status, xhr) {
+        console.log(env_html)
+        $(".tab-content").append($(env_html));
+        $("#tabs").prepend(
+            $('<li>')
+            .append(
+                $('<a>')
+                .attr('id', `${params.tabName}`)
+                .attr('href', `#${params.projectName}`)
+                .attr('data-toggle', 'tab')
+                .text(`${params.title}`)
+                .click(function (e) {
+                })
+            )
+        );
+        isTargetUrl();
+    }
+
     function renderPage() {
         utils.ajax(urls.static_url + 'html/main.html', {
             dataType: 'html',
-            success: function(env_html, status, xhr) {
-                $(".tab-content").append($(env_html));
-                $("#tabs").prepend(
-                    $('<li>')
-                    .append(
-                        $('<a>')
-                        .attr('id', `${params.tabName}`)
-                        .attr('href', `#${params.projectName}`)
-                        .attr('data-toggle', 'tab')
-                        .text(`${params.title}`)
-                        .click(function (e) {
-                        })
-                    )
-                );
-                isTargetUrl();
-            }
+            success: appendPage,
         });  
     }
 
