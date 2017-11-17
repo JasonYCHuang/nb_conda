@@ -3,6 +3,7 @@ define(function(require) {
     var Jupyter = require('base/js/namespace');
     var utils = require('base/js/utils');
     var urls = require('./urls');
+    var params = require('./js/params');
 
     function appendCss() {
         $('head').append(
@@ -13,9 +14,9 @@ define(function(require) {
         );
     }
 
-    function isManagerUrl() {
-        if(window.location.hash === '#manager') {
-            $('#manager_tab').click();
+    function isTargetUrl() {
+        if(window.location.hash === `#${params.projectName}`) {
+            $(`#${params.tabName}`).click();
         }
     }
 
@@ -28,15 +29,15 @@ define(function(require) {
                     $('<li>')
                     .append(
                         $('<a>')
-                        .attr('id', 'manager_tab')
-                        .attr('href', '#manager')
+                        .attr('id', `${params.tabName}`)
+                        .attr('href', `#${params.projectName}`)
                         .attr('data-toggle', 'tab')
-                        .text('Deep Learning Manager')
+                        .text(`${params.title}`)
                         .click(function (e) {
                         })
                     )
                 );
-                isManagerUrl();
+                isTargetUrl();
             }
         });  
     }
