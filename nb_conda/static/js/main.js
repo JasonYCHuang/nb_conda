@@ -2,7 +2,7 @@ define(function(require) {
     var $ = require('jquery');
     var Jupyter = require('base/js/namespace');
     var utils = require('base/js/utils');
-    var urls = require('./urls');
+    var urls = require('../urls');
 
     function appendCss() {
         $('head').append(
