@@ -1,0 +1,19 @@
+{
+  "name": "nb_conda",
+  "version": "1.0.0",
+  "description": "[![Install with conda](https://anaconda.org/conda-forge/nb_conda/badges/installer/conda.svg )](https://anaconda.org/conda-forge/nb_conda) [![Build Status](https://travis-ci.org/Anaconda-Platform/nb_conda.svg)](https://travis-ci.org/Anaconda-Platform/nb_conda) [![Build status](https://ci.appveyor.com/api/projects/status/j999v076nwgwppwm/branch/master?svg=true)](https://ci.appveyor.com/project/bollwyvl/nb-conda/branch/master) [![Coverage Status](https://coveralls.io/repos/github/Anaconda-Platform/nb_conda/badge.svg?branch=master)](https://coveralls.io/github/Anaconda-Platform/nb_conda?branch=master)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JasonYCHuang/nb_conda.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JasonYCHuang/nb_conda/issues"
+  },
+  "homepage": "https://github.com/JasonYCHuang/nb_conda#readme"
+}
