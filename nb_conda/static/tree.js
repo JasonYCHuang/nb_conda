@@ -3,7 +3,7 @@ define(function(require) {
     var Jupyter = require('base/js/namespace');
     var utils = require('base/js/utils');
     var urls = require('./urls');
-    var params = require('./js/params');
+    var params = require('./src/params');
 
     function appendCss() {
         $('head').append(
@@ -14,6 +14,14 @@ define(function(require) {
         );
     }
 
+    function appendBundleJS() {
+        $('body').append(
+            $('<script>')
+            .attr('src', urls.static_url + 'src/public/bundle.js')
+            .attr('type', 'text/javascript')
+        );
+    }
+
     function isTargetUrl() {
         if(window.location.hash === `#${params.projectName}`) {
             $(`#${params.tabName}`).click();
@@ -21,7 +29,6 @@ define(function(require) {
     }
 
     function appendPage(env_html, status, xhr) {
-        console.log(env_html)
         $(".tab-content").append($(env_html));
         $("#tabs").prepend(
             $('<li>')
@@ -36,6 +43,7 @@ define(function(require) {
             )
         );
         isTargetUrl();
+        appendBundleJS();
     }
 
     function renderPage() {
