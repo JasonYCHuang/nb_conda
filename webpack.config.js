@@ -10,6 +10,9 @@ var config = {
     path: BUILD_DIR,
     filename: 'bundle.js'
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   module : {
     loaders : [
       {
@@ -18,6 +21,9 @@ var config = {
         loader : 'babel-loader'
       }
     ]
+  },
+  watchOptions: {
+    aggregateTimeout: 2000,
   }
 };
 
