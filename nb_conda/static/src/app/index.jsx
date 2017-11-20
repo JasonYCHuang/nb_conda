@@ -1,16 +1,14 @@
 import React from 'react';
-import {render} from 'react-dom';
-import AwesomeComponent from './AwesomeComponent.jsx';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
-class App extends React.Component {
-  render () {
-    return (
-      <div>
-        <p> Hello React Project</p>
-        <AwesomeComponent />
-      </div>
-    );
-  }
-}
+import App from './components/app';
+import reducers from './reducers';
 
-render(<App/>, document.getElementById('manager'));
+ReactDOM.render(
+  <Provider store={createStore(reducers)}>
+    <App />
+  </Provider>,
+  document.getElementById('manager')
+);
