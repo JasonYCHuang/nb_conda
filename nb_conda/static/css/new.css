@@ -1,0 +1,12 @@
+.text-tab-stage {
+  margin: 0 10px;
+}
+
+.card-content {
+  height: 500px;
+}
+
+.card-content .nav {
+  border: 1px solid #337ab7;
+  border-radius: 5px;
+}

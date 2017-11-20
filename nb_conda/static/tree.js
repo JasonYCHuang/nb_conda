@@ -16,6 +16,12 @@ define(function(require) {
             $('<link>')
             .attr('rel', 'stylesheet')
             .attr('type', 'text/css')
+            .attr('href', urls.static_url + 'css/new.css')
+        );
+        $('head').append(
+            $('<link>')
+            .attr('rel', 'stylesheet')
+            .attr('type', 'text/css')
             .attr('href', 'https://unpkg.com/react-select/dist/react-select.css')
         );
     }
