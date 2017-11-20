@@ -1,51 +1,60 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Well, Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import Select from 'react-select';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import optCategories from '../../constants/opt-categories';
 import { selectCategory } from '../../actions/category';
+import ModalAddCategory from './modal';
 
 class Header extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showModal: false,
+    };
 
     this.onSelectCategory = this.onSelectCategory.bind(this);
-    this.onClickAdd = this.onClickAdd.bind(this);
+    this.onToggleModal = this.onToggleModal.bind(this);
   }
 
   onSelectCategory(e) {
     this.props.selectCategory(e.value);
   }
 
-  onClickAdd() {
-    console.log('TBD');
+  onToggleModal() {
+    const { showModal } = this.state;
+    this.setState({ showModal: !showModal });
   }
 
   render() {
+    const { showModal } = this.state;
+
     return (
-      <Well bsSize="small">
-        <Row>
-          <Col md={4}>
-            <Select
-              value={this.props.category}
-              options={optCategories}
-              onChange={this.onSelectCategory}
-              clearable={false}
-            />
-          </Col>
-          <Col md={4} />
-          <Col md={4}>
-            <Button
-              className="pull-right"
-              onClick={this.onClickAdd}
-            >
-              Add
-            </Button>
-          </Col>
-        </Row>
-      </Well>
+      <Row>
+        <Col md={4}>
+          <Select
+            value={this.props.category}
+            options={optCategories}
+            onChange={this.onSelectCategory}
+            clearable={false}
+          />
+        </Col>
+        <Col md={4} />
+        <Col md={4}>
+          <Button
+            className="pull-right"
+            onClick={this.onToggleModal}
+          >
+            Add
+          </Button>
+        </Col>
+        <ModalAddCategory
+          show={showModal}
+          onHide={this.onToggleModal}
+        />
+      </Row>
     );
   }
 }
