@@ -59,3 +59,5 @@ target/
 *.xunit.xml
 screenshots/
 node_modules/
+
+nb_conda/static/src/public/bundle.js
