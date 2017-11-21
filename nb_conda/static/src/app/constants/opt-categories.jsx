@@ -1,6 +1,6 @@
 const optCategories = [
-  { value: 'react-mc', label: 'Reaction Prediction - map & classify' },
-  { value: 'react-et', label: 'Reaction Prediction - edit' },
+  { value: 'synth-mc', label: 'Synthesis - map & classify' },
+  { value: 'synth-et', label: 'Synthesis - edit' },
   { value: 'retro-mc', label: 'Retrosynthesis - map & classify' },
 ];
 
