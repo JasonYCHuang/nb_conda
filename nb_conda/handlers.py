@@ -281,6 +281,7 @@ default_handlers = [
 
 def load_jupyter_server_extension(nbapp):
     """Load the nbserver extension"""
+    print("*** *** *** *** *** *** Hallo World *** *** *** *** *** *** ")
     webapp = nbapp.web_app
     webapp.settings['env_manager'] = EnvManager(parent=nbapp)
 
