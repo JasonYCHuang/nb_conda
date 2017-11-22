@@ -18,13 +18,15 @@
   },
   "homepage": "https://github.com/JasonYCHuang/nb_conda#readme",
   "dependencies": {
+    "axios": "^0.17.1",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
     "react-select": "^1.0.0-rc.10",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
