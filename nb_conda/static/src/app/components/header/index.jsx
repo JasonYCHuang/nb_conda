@@ -4,8 +4,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import Select from 'react-select';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import optCategories from '../../constants/opt-categories';
-import { selectCategory } from '../../actions/category';
+import { selectCategory, fetchCategoryOpts } from '../../actions/category';
 import ModalAddCategory from './modal';
 
 class Header extends Component {
@@ -17,6 +16,10 @@ class Header extends Component {
 
     this.onSelectCategory = this.onSelectCategory.bind(this);
     this.onToggleModal = this.onToggleModal.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchCategoryOpts();
   }
 
   onSelectCategory(e) {
@@ -49,14 +52,15 @@ class Header extends Component {
 
   render() {
     const { showModal } = this.state;
+    const { category } = this.props;
     const btns = this.renderRightBtns();
 
     return (
       <Row>
         <Col md={4}>
           <Select
-            value={this.props.category}
-            options={optCategories}
+            value={category.selected}
+            options={category.options}
             onChange={this.onSelectCategory}
             clearable={false}
           />
@@ -77,12 +81,16 @@ const mapStateToProps = state => (
 );
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators({ selectCategory }, dispatch)
+  bindActionCreators({ selectCategory, fetchCategoryOpts }, dispatch)
 );
 
 Header.propTypes = {
-  category: PropTypes.string.isRequired,
+  category: PropTypes.shape({
+    options: PropTypes.array.isRequired,
+    selected:  PropTypes.number.isRequired,
+  }),
   selectCategory: PropTypes.func.isRequired,
+  fetchCategoryOpts: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

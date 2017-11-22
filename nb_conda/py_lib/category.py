@@ -18,7 +18,7 @@ class Category():
         categories = self.list_folders(workspace)
         for c in categories:
             models = self.list_folders(workspace, c)
-            paths = [c + '\\' + m for m in models]     
+            paths = [c + ' - ' + m for m in models]     
             tree_list.append(paths)
 
         return sum(tree_list, [])

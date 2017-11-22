@@ -19,7 +19,7 @@ class Content extends Component {
 
   render() {
     return (
-      <Tab.Container defaultActiveKey={0}>
+      <Tab.Container defaultActiveKey={0} id={0} >
         <Row className="clearfix card-content">
           <Col sm={3}>
             <Nav bsStyle="pills" stacked>
