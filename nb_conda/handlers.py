@@ -49,12 +49,23 @@ class HalloHandler(APIHandler):
     def get(self):
         self.finish(json.dumps({ 'msg': 'Hallo world - - - -- - - - -123' }))
 
+class ByeHandler(APIHandler):
+    """
+    Handler for `GET /packages/search?q=<query>`, which uses CondaSearcher
+    to search the available conda packages. Note, this is pretty slow
+    and the nb_conda UI doesn't call it.
+    """
+    @web.authenticated
+    @json_errors
+    def get(self):
+        self.finish(json.dumps({ 'msg': 'Bye, See you tomorrow.' }))
 # -----------------------------------------------------------------------------
 # URL to handler mappings
 # -----------------------------------------------------------------------------
 
 default_handlers = [
     (r"/hallo", HalloHandler),
+    (r"/bye", ByeHandler),
 ]
 
 

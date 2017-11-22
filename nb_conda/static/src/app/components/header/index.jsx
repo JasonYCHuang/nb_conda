@@ -28,8 +28,28 @@ class Header extends Component {
     this.setState({ showModal: !showModal });
   }
 
+  renderRightBtns() {
+    return (
+      <div>
+        <Button
+          className="pull-right space-h-2"
+        >
+          <i className="fa fa-cog" />
+          <span>  Setting</span>
+        </Button>
+        <Button
+          className="pull-right space-h-2"
+        >
+          <i className="fa fa-plus" />
+          <span>  Add</span>
+        </Button>
+      </div>
+    );
+  }
+
   render() {
     const { showModal } = this.state;
+    const btns = this.renderRightBtns();
 
     return (
       <Row>
@@ -42,14 +62,7 @@ class Header extends Component {
           />
         </Col>
         <Col md={4} />
-        <Col md={4}>
-          <Button
-            className="pull-right"
-            onClick={this.onToggleModal}
-          >
-            Add
-          </Button>
-        </Col>
+        <Col md={4}>{btns}</Col>
         <ModalAddCategory
           show={showModal}
           onHide={this.onToggleModal}
