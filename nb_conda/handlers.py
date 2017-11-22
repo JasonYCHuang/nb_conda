@@ -22,57 +22,35 @@ from notebook.base.handlers import (
 )
 from tornado import web
 
-static = os.path.join(os.path.dirname(__file__), 'static')
+from .py_lib.category import Category
 
 NS = r'chemotion_dl'
 
-
-class EnvBaseHandler(APIHandler):
-    """
-    Mixin for an env manager. Just maintains a reference to the
-    'env_manager' which implements all of the conda functions.
-    """
+class BaseHandler(APIHandler):
     @property
-    def env_manager(self):
-        """Return our env_manager instance"""
-        return self.settings['env_manager']
+    def category(self):
+        return self.settings['category']
 
 
-class HalloHandler(APIHandler):
-    """
-    Handler for `GET /packages/search?q=<query>`, which uses CondaSearcher
-    to search the available conda packages. Note, this is pretty slow
-    and the nb_conda UI doesn't call it.
-    """
+class CategoryHandler(BaseHandler):
     @web.authenticated
     @json_errors
     def get(self):
-        self.finish(json.dumps({ 'msg': 'Hallo world - - - -- - - - -123' }))
+        self.finish(json.dumps({ 'tree': self.category.tree() }))
 
-class ByeHandler(APIHandler):
-    """
-    Handler for `GET /packages/search?q=<query>`, which uses CondaSearcher
-    to search the available conda packages. Note, this is pretty slow
-    and the nb_conda UI doesn't call it.
-    """
-    @web.authenticated
-    @json_errors
-    def get(self):
-        self.finish(json.dumps({ 'msg': 'Bye, See you tomorrow.' }))
+
 # -----------------------------------------------------------------------------
 # URL to handler mappings
 # -----------------------------------------------------------------------------
 
 default_handlers = [
-    (r"/hallo", HalloHandler),
-    (r"/bye", ByeHandler),
+    (r"/categories", CategoryHandler),
 ]
 
 
 def load_jupyter_server_extension(nbapp):
-    """Load the nbserver extension"""
     webapp = nbapp.web_app
-    # webapp.settings['env_manager'] = EnvManager(parent=nbapp)
+    webapp.settings['category'] = Category()
 
     base_url = webapp.settings['base_url']
     webapp.add_handlers(".*$", [
