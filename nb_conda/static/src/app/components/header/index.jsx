@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Select from 'react-select';
 import { connect } from 'react-redux';
 import { Row, Col, Button } from 'react-bootstrap';
-import Select from 'react-select';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
 import { selectCategory, fetchCategoryOpts } from '../../actions/category';
 import ModalAddCategory from './modal';
 
@@ -54,18 +54,22 @@ class Header extends Component {
     const { showModal } = this.state;
     const { category } = this.props;
     const btns = this.renderRightBtns();
+    const isLoading = category.options.length === 0;
 
     return (
       <Row>
+        <Col md={4}>
+          <span className='card-header font-header'>Chemotion DL</span>
+        </Col>
         <Col md={4}>
           <Select
             value={category.selected}
             options={category.options}
             onChange={this.onSelectCategory}
             clearable={false}
+            isLoading={isLoading}
           />
         </Col>
-        <Col md={4} />
         <Col md={4}>{btns}</Col>
         <ModalAddCategory
           show={showModal}

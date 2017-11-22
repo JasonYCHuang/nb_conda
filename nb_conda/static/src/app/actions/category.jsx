@@ -17,7 +17,12 @@ const fetchCategoryOpts = () => {
 
   return (dispatch) => {
     request.then(({ data }) => {
-      dispatch({ type: FETCH_CATEGORY_OPTS, payload: data.tree })
+      dispatch({
+        type: FETCH_CATEGORY_OPTS,
+        payload: data.tree,
+      })
+    }).catch((err) => {
+      console.log(err);
     });
   };
 }
