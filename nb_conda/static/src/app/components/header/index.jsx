@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
-import { selectMethod, fetchMethodOpts } from '../../actions/select-method';
 import ModalAdd from './modal-add';
+import RenderRightBtns from './index-component';
+import MD_ADD from '../constants/modal-add';
+import { selectMethod, fetchMethodOpts } from '../../actions/select-method';
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModalAdd: false,
+      modalAddTyp: MD_ADD.DISABLED,
     };
 
     this.onSelectMethod = this.onSelectMethod.bind(this);
-    this.onToggleModalAdd = this.onToggleModalAdd.bind(this);
+    this.onChangeModalAddTyp = this.onChangeModalAddTyp.bind(this);
   }
 
   componentDidMount() {
@@ -26,46 +28,19 @@ class Header extends Component {
     this.props.selectMethod(e.value);
   }
 
-  onToggleModalAdd() {
-    const { showModalAdd } = this.state;
-    this.setState({ showModalAdd: !showModalAdd });
+  onChangeModalAddTyp(typ) {
+    this.setState({ modalAddTyp: typ });
   }
-
-  renderRightBtns() {
-    return (
-      <div>
-        <Button
-          className="pull-right space-h-2"
-        >
-          <i className="fa fa-cog" />
-          <span>  Setting</span>
-        </Button>
-        {this.renderAddDropDown()}
-      </div>
-    );
-  }
-
-  renderAddDropDown() {
-    return (
-      <DropdownButton title={Add} id="add-dropdown">
-        <MenuItem eventKey="1">Action</MenuItem>
-        <MenuItem eventKey="2">Another action</MenuItem>
-      </DropdownButton>
-    );
-  }
-
-
 
   render() {
-    const { showModalAdd } = this.state;
+    const { modalAddTyp } = this.state;
     const { method } = this.props;
-    const btns = this.renderRightBtns();
     const isLoading = method.options.length === 0;
 
     return (
       <Row>
         <Col md={4}>
-          <span className='card-header font-header'>Chemotion DL</span>
+          <span className="card-header font-header">Chemotion DL</span>
         </Col>
         <Col md={4}>
           <Select
@@ -76,10 +51,12 @@ class Header extends Component {
             isLoading={isLoading}
           />
         </Col>
-        <Col md={4}>{btns}</Col>
+        <Col md={4}>
+          <RenderRightBtns onChange={this.onChangeModalAddTyp} />
+        </Col>
         <ModalAdd
-          show={showModalAdd}
-          onHide={this.onToggleModalAdd}
+          type={modalAddTyp}
+          onChange={this.onChangeModalAddTyp}
         />
       </Row>
     );
@@ -97,8 +74,8 @@ const mapDispatchToProps = dispatch => (
 Header.propTypes = {
   method: PropTypes.shape({
     options: PropTypes.array.isRequired,
-    selected:  PropTypes.number.isRequired,
-  }),
+    selected: PropTypes.number.isRequired,
+  }).isRequired,
   selectMethod: PropTypes.func.isRequired,
   fetchMethodOpts: PropTypes.func.isRequired,
 };

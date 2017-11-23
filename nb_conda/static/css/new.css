@@ -17,6 +17,14 @@
   margin: 0 2px;
 }
 
+.space-h-5 {
+  margin: 0 5px;
+}
+
+.space-h-10 {
+  margin: 0 10px;
+}
+
 .font-header {
   font-size: 20px;
 }
