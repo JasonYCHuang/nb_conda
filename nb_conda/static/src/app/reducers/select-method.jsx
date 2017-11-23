@@ -1,4 +1,4 @@
-import { SELECT_CATEGORY, FETCH_CATEGORY_OPTS } from '../actions/category';
+import { SELECT_METHOD, FETCH_METHOD_OPTS } from '../actions/select-method';
 
 const defaultState = {
   options: [],
@@ -9,13 +9,13 @@ const treeToOpts = (tree) => (
   tree.map((t, idx) => ({ value: idx, label: t }))
 );
 
-const CategoryReducer = (state = defaultState, action) => {
+const SelectMethodReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case SELECT_CATEGORY:
+    case SELECT_METHOD:
       return Object.assign({}, state, {
         selected: action.payload,
       });
-    case FETCH_CATEGORY_OPTS:
+    case FETCH_METHOD_OPTS:
       return Object.assign({}, state, {
         options: treeToOpts(action.payload),
         selected: 0,
@@ -25,4 +25,4 @@ const CategoryReducer = (state = defaultState, action) => {
   }
 };
 
-export default CategoryReducer;
+export default SelectMethodReducer;

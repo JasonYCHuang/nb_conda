@@ -22,21 +22,21 @@ from notebook.base.handlers import (
 )
 from tornado import web
 
-from .py_lib.category import Category
+from .py_lib.select_method import SelectMethod
 
 NS = r'chemotion_dl'
 
 class BaseHandler(APIHandler):
     @property
-    def category(self):
-        return self.settings['category']
+    def select_method(self):
+        return self.settings['select_method']
 
 
-class CategoryHandler(BaseHandler):
+class SelectMethodHandler(BaseHandler):
     @web.authenticated
     @json_errors
     def get(self):
-        self.finish(json.dumps({ 'tree': self.category.tree() }))
+        self.finish(json.dumps({ 'tree': self.select_method.tree() }))
 
 
 # -----------------------------------------------------------------------------
@@ -44,13 +44,14 @@ class CategoryHandler(BaseHandler):
 # -----------------------------------------------------------------------------
 
 default_handlers = [
-    (r"/categories", CategoryHandler),
+    (r"/select_methods", SelectMethodHandler),
 ]
 
 
 def load_jupyter_server_extension(nbapp):
     webapp = nbapp.web_app
-    webapp.settings['category'] = Category()
+    webapp.settings['select_method'] = SelectMethod()
+    print(SelectMethod().tree())
 
     base_url = webapp.settings['base_url']
     webapp.add_handlers(".*$", [

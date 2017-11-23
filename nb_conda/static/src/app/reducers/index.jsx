@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import CategoryReducer from './category';
+import SelectMethodReducer from './select-method';
 
 const rootReducer = combineReducers({
-  category: CategoryReducer,
+  method: SelectMethodReducer,
 });
 
 export default rootReducer;

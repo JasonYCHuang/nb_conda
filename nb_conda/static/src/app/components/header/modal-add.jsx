@@ -2,10 +2,10 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-const ModalAddCategory = ({ show, onHide }) => (
+const ModalAdd = ({ show, onHide }) => (
   <Modal show={show} onHide={onHide}>
     <Modal.Header closeButton>
-      <Modal.Title>Add Prediction Category</Modal.Title>
+      <Modal.Title>Add Sth</Modal.Title>
     </Modal.Header>
 
     <Modal.Body>
@@ -18,9 +18,9 @@ const ModalAddCategory = ({ show, onHide }) => (
   </Modal>
 );
 
-ModalAddCategory.propTypes = {
+ModalAdd.propTypes = {
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
 };
 
-export default ModalAddCategory;
+export default ModalAdd;
