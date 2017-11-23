@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const FETCH_RAW_DATA_FILES = 'fetch _raw_data_files';
+export const FETCH_RAW_DATA_FILES = 'fetch_raw_data_files';
 
 const hostUrl = 'http://localhost:8888/chemotion_dl';
 

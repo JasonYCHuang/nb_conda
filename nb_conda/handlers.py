@@ -32,6 +32,9 @@ class BaseHandler(APIHandler):
     def select_method(self):
         return self.settings['select_method']
 
+    @property
+    def raw_data(self):
+        return self.settings['raw_data']
 
 class SelectMethodHandler(BaseHandler):
     @web.authenticated
