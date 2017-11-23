@@ -51,7 +51,6 @@ default_handlers = [
 def load_jupyter_server_extension(nbapp):
     webapp = nbapp.web_app
     webapp.settings['select_method'] = SelectMethod()
-    print(SelectMethod().tree())
 
     base_url = webapp.settings['base_url']
     webapp.add_handlers(".*$", [

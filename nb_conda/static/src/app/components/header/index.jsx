@@ -40,15 +40,21 @@ class Header extends Component {
           <i className="fa fa-cog" />
           <span>  Setting</span>
         </Button>
-        <Button
-          className="pull-right space-h-2"
-        >
-          <i className="fa fa-plus" />
-          <span>  Add</span>
-        </Button>
+        {this.renderAddDropDown()}
       </div>
     );
   }
+
+  renderAddDropDown() {
+    return (
+      <DropdownButton title={Add} id="add-dropdown">
+        <MenuItem eventKey="1">Action</MenuItem>
+        <MenuItem eventKey="2">Another action</MenuItem>
+      </DropdownButton>
+    );
+  }
+
+
 
   render() {
     const { showModalAdd } = this.state;
