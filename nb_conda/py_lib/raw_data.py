@@ -7,7 +7,7 @@ rd_folder = '/data'
 class RawData():
     def files(self):
         file_names = os.listdir(workspace + rd_folder)
-        return [self.__file_property(f) for f in file_names]
+        return [self.__file_property(f) for f in file_names if not f.startswith('.')]
 
     def __file_property(self, file):
         path = workspace + rd_folder + '/' + file
@@ -26,8 +26,11 @@ class RawData():
     def __readable_byte(self, num):
         for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
             if num < 1024.0:
-                return '%3.1f %s' % (num, x)
+                return '%3.0f %s' % (num, x)
             num /= 1024.0
+
+    def __to_int_str(self, num):
+        return str(int(num))
 
     def __pretty_time(self, time):
         now = datetime.now()
@@ -42,21 +45,22 @@ class RawData():
             if diff_sec < 10:
                 return 'just now'
             if diff_sec < 60:
-                return str(diff_sec) + ' seconds ago'
+                return self.__to_int_str(diff_sec) + ' seconds ago'
             if diff_sec < 120:
                 return 'a minute ago'
             if diff_sec < 3600:
-                return str(diff_sec / 60) + ' minutes ago'
+                return self.__to_int_str(diff_sec / 60) + ' minutes ago'
             if diff_sec < 7200:
                 return 'an hour ago'
             if diff_sec < 86400:
-                return str(diff_sec / 3600) + ' hours ago'
+                return self.__to_int_str(diff_sec / 3600) + ' hours ago'
         if diff_day == 1:
             return 'Yesterday'
         if diff_day < 7:
-            return str(diff_day) + ' days ago'
+            return self.__to_int_str(diff_day) + ' days ago'
         if diff_day < 31:
-            return str(diff_day / 7) + ' weeks ago'
+            return self.__to_int_str(diff_day / 7) + ' weeks ago'
         if diff_day < 365:
-            return str(diff_day / 30) + ' months ago'
-        return str(diff_day / 365) + ' years ago'
+            return self.__to_int_str(diff_day / 30) + ' months ago'
+        return self.__to_int_str(diff_day / 365) + ' years ago'
+

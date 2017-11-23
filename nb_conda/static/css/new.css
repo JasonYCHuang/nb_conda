@@ -32,3 +32,12 @@
 .card-header {
   line-height: 36px;
 }
+
+.text-small {
+  font-size: 10px;
+  color: gray;
+}
+
+.pull-center {
+  text-align: center;
+}
