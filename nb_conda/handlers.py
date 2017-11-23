@@ -23,6 +23,7 @@ from notebook.base.handlers import (
 from tornado import web
 
 from .py_lib.select_method import SelectMethod
+from .py_lib.raw_data import RawData
 
 NS = r'chemotion_dl'
 
@@ -39,18 +40,26 @@ class SelectMethodHandler(BaseHandler):
         self.finish(json.dumps({ 'tree': self.select_method.tree() }))
 
 
+class RawDataHandler(BaseHandler):
+    @web.authenticated
+    @json_errors
+    def get(self):
+        self.finish(json.dumps({ 'files': self.raw_data.files() }))
+
 # -----------------------------------------------------------------------------
 # URL to handler mappings
 # -----------------------------------------------------------------------------
 
 default_handlers = [
     (r"/select_methods", SelectMethodHandler),
+    (r"/raw_data", RawDataHandler),
 ]
 
 
 def load_jupyter_server_extension(nbapp):
     webapp = nbapp.web_app
     webapp.settings['select_method'] = SelectMethod()
+    webapp.settings['raw_data'] = RawData()
 
     base_url = webapp.settings['base_url']
     webapp.add_handlers(".*$", [

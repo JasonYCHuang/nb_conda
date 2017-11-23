@@ -3,9 +3,9 @@ import { SELECT_METHOD, FETCH_METHOD_OPTS } from '../actions/select-method';
 const defaultState = {
   options: [],
   selected: 0,
-}
+};
 
-const treeToOpts = (tree) => (
+const treeToOpts = tree => (
   tree.map((t, idx) => ({ value: idx, label: t }))
 );
 

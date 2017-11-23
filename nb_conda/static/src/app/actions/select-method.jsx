@@ -13,18 +13,18 @@ const selectMethod = method => (
 );
 
 const fetchMethodOpts = () => {
-  const request =  axios.get(`${hostUrl}/select_methods`);
+  const request = axios.get(`${hostUrl}/select_methods`);
 
   return (dispatch) => {
     request.then(({ data }) => {
       dispatch({
         type: FETCH_METHOD_OPTS,
         payload: data.tree,
-      })
+      });
     }).catch((err) => {
       console.log(err);
     });
   };
-}
+};
 
 export { selectMethod, fetchMethodOpts };
