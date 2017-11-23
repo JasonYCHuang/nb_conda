@@ -20,7 +20,7 @@ from notebook.base.handlers import (
     APIHandler,
     json_errors,
 )
-from tornado import web
+from tornado import web, gen
 
 from .py_lib.select_method import SelectMethod
 from .py_lib.raw_data import RawData
@@ -48,6 +48,11 @@ class RawDataHandler(BaseHandler):
     @json_errors
     def get(self):
         self.finish(json.dumps({ 'files': self.raw_data.files() }))
+
+    @web.authenticated
+    @gen.coroutine
+    def pst(self):
+        print(self.get_json_body())
 
 # -----------------------------------------------------------------------------
 # URL to handler mappings

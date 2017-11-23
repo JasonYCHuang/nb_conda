@@ -41,3 +41,15 @@
 .pull-center {
   text-align: center;
 }
+
+.card-dropzone {
+  border: 3px dashed lightgray;
+  height: 50px;
+  width: 100%;
+}
+
+.text-dropzone {
+  color: gray;
+  text-align: center;
+  padding-top: 12px;
+}
