@@ -13,16 +13,30 @@ const iconTyp = isDir => (
 );
 
 const RenderRawDataTable = ({ roles }) => (
-  roles.map(r => (
-    <tr>
-      <td className="pull-center">{iconTyp(r.isDir)}</td>
-      <td>
-        <span>{r.name}</span>
-        <span className="text-small space-h-5">{r.size}</span>
-        <span className="pull-right">{r.modifiedAt}</span>
-      </td>
-    </tr>
-  ))
+  <Table striped bordered hover>
+    <tbody>
+      {
+        roles.map((r, idx) => (
+          <tr key={`${r.name}-${idx}`} >
+            <td className="pull-center">{iconTyp(r.isDir)}</td>
+            <td>
+              <span>{r.name}</span>
+              <span className="text-small space-h-5">{r.size}</span>
+              <span className="pull-right">{r.modifiedAt}</span>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </Table>
+);
+
+const RenderNoFiles = () => (
+  <Table striped bordered hover>
+    <tbody>
+      <tr><td>No file founded</td></tr>
+    </tbody>
+  </Table>
 );
 
 class FileBrowser extends Component {
@@ -34,11 +48,9 @@ class FileBrowser extends Component {
     const { rawData } = this.props;
 
     return (
-      <Table striped bordered hover>
-        <tbody>
-          <RenderRawDataTable roles={rawData.files} />
-        </tbody>
-      </Table>
+      rawData.files.length > 0
+        ? <RenderRawDataTable roles={rawData.files} />
+        : <RenderNoFiles />
     );
   }
 }
@@ -50,6 +62,10 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   bindActionCreators({ fetchRawDataFiles }, dispatch)
 );
+
+RenderRawDataTable.propTypes = {
+  roles: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 FileBrowser.propTypes = {
   rawData: PropTypes.shape({

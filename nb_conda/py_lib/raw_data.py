@@ -7,10 +7,22 @@ rd_folder = '/data'
 class RawData():
     def files(self):
         file_names = os.listdir(workspace + rd_folder)
-        return [self.__file_property(f) for f in file_names if not f.startswith('.')]
+        return self.__files_property(file_names)
+
+    def __files_property(self, names):
+        list_dir = []
+        list_file = []
+        for fn in names:
+            if not fn.startswith('.'):
+                fp = self.__file_property(fn)
+                list_dir.append(fp) if fp['isDir'] else list_file.append(fp)
+        return list_dir + list_file
+
+    def __path(self, file):
+        return workspace + rd_folder + '/' + file
 
     def __file_property(self, file):
-        path = workspace + rd_folder + '/' + file
+        path = self.__path(file)
         is_dir = os.path.isdir(path)
         fp = os.stat(path)
         size = self.__readable_byte(fp.st_size)
