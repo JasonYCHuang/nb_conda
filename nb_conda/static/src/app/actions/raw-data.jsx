@@ -33,7 +33,7 @@ const uploadRawData = (files) => {
   };
 
   const url = `${hostUrl}/raw_data`;
-  const request = axios.post(url, data, config);
+  const request = axios.post(url, data);
 
   // TBD
 };
