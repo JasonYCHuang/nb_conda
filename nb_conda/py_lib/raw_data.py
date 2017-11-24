@@ -5,7 +5,7 @@ workspace = '/Users/jason/workspace/python/dl-platform'
 rd_folder = '/data'
 
 class RawData():
-    def files(self):
+    def list_files(self):
         file_names = os.listdir(workspace + rd_folder)
         return self.__files_property(file_names)
 
@@ -13,8 +13,11 @@ class RawData():
         for _, value in request.files.items():
             file = value[0]
             file_name = file['filename']
-            output_file = open(workspace + '/copy/' + file_name, 'wb')
+            file_path = workspace + rd_folder + '/' + file_name
+            output_file = open(file_path, 'wb')
             output_file.write(file['body'])
+
+        return self.list_files()
 
     def __files_property(self, names):
         list_dir = []

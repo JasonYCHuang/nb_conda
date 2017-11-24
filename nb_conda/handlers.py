@@ -47,12 +47,13 @@ class RawDataHandler(BaseHandler):
     @web.authenticated
     @json_errors
     def get(self):
-        self.finish(json.dumps({ 'files': self.raw_data.files() }))
+        self.finish(json.dumps({ 'files': self.raw_data.list_files() }))
 
     @web.authenticated
     @gen.coroutine
     def post(self):
         self.raw_data.save_files(self.request)
+        self.finish(json.dumps({ 'files': self.raw_data.list_files() }))
 
 # -----------------------------------------------------------------------------
 # URL to handler mappings

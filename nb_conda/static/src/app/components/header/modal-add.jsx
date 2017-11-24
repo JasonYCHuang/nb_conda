@@ -1,10 +1,9 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import Dropzone from 'react-dropzone';
 import MD_ADD from '../constants/modal-add';
 import FileBrowser from '../file-browser';
-import { uploadRawData } from '../../actions/raw-data';
+import FileDropzone from '../file-dropzone';
 
 const TitleProto = ({ icon, text }) => {
   const iconClass = `fa fa-${icon} space-h-10`;
@@ -32,11 +31,7 @@ const Title = ({ type }) => {
 const RenderBodyRawData = () => (
   <div>
     <FileBrowser />
-    <Dropzone className="card-dropzone" onDrop={onDrop}>
-      <div className="text-dropzone">
-        Upload
-      </div>
-    </Dropzone>
+    <FileDropzone />
   </div>
 );
 
@@ -49,10 +44,6 @@ const Body = ({ type }) => {
     default:
       return null;
   }
-};
-
-const onDrop = (acceptedFiles, rejectedFiles) => {
-  uploadRawData(acceptedFiles);
 };
 
 const ModalAdd = ({ type, onChange }) => {

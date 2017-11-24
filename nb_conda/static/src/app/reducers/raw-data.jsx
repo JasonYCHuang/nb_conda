@@ -7,6 +7,7 @@ const defaultState = {
 const RawDataReducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_RAW_DATA_FILES:
+      console.log(action.payload)
       return Object.assign({}, state, {
         files: action.payload,
       });
