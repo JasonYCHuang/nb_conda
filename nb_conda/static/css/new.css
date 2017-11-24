@@ -46,10 +46,8 @@
   text-align: center;
 }
 
-.card-dropzone {
-/*  border: 3px dashed lightgray;
-  height: 50px;
-  width: 100%;*/
+.card-inline {
+  display: inline;
 }
 
 .text-dropzone {

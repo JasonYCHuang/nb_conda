@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Dropzone from 'react-dropzone';
+import { Button } from 'react-bootstrap';
 
 import { uploadRawData } from '../../actions/raw-data';
 
@@ -19,8 +20,10 @@ class FileDropzone extends Component {
 
   render() {
     return (
-      <Dropzone className="card-dropzone" onDrop={this.onDrop}>
-        <i className="fa fa-plus" />
+      <Dropzone className="card-inline" onDrop={this.onDrop}>
+        <Button className="space-h-5 btn-icon-only" bsStyle="primary">
+          <i className="fa fa-plus" />
+        </Button>
       </Dropzone>
     );
   }
