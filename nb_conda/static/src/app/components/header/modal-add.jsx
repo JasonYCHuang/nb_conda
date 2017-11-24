@@ -29,12 +29,23 @@ const Title = ({ type }) => {
   }
 };
 
+const RenderBodyRawData = () => (
+  <div>
+    <FileBrowser />
+    <Dropzone className="card-dropzone" onDrop={onDrop}>
+      <div className="text-dropzone">
+        Upload
+      </div>
+    </Dropzone>
+  </div>
+);
+
 const Body = ({ type }) => {
   switch (type) {
     case MD_ADD.DL_MODEL:
       return null;
     case MD_ADD.RAW_DATA:
-      return <FileBrowser />;
+      return <RenderBodyRawData />
     default:
       return null;
   }
@@ -57,14 +68,6 @@ const ModalAdd = ({ type, onChange }) => {
       <Modal.Body>
         <Body type={type} />
       </Modal.Body>
-
-      <Modal.Footer>
-        <Dropzone className="card-dropzone" onDrop={onDrop}>
-          <div className="text-dropzone">
-            Upload
-          </div>
-        </Dropzone>
-      </Modal.Footer>
 
       <Modal.Footer>
         <Button onClick={onHide}>
