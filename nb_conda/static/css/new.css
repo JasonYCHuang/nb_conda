@@ -25,6 +25,10 @@
   margin: 0 10px;
 }
 
+.space-v-b-10 {
+  margin-bottom: 10px;
+}
+
 .font-header {
   font-size: 20px;
 }
@@ -43,9 +47,9 @@
 }
 
 .card-dropzone {
-  border: 3px dashed lightgray;
+/*  border: 3px dashed lightgray;
   height: 50px;
-  width: 100%;
+  width: 100%;*/
 }
 
 .text-dropzone {

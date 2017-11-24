@@ -68,7 +68,10 @@ const mapStateToProps = state => (
 );
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators({ selectMethod, fetchMethodOpts }, dispatch)
+  bindActionCreators({
+    selectMethod,
+    fetchMethodOpts,
+  }, dispatch)
 );
 
 Header.propTypes = {

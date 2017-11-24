@@ -3,7 +3,6 @@ import { Modal, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import MD_ADD from '../constants/modal-add';
 import FileBrowser from '../file-browser';
-import FileDropzone from '../file-dropzone';
 
 const TitleProto = ({ icon, text }) => {
   const iconClass = `fa fa-${icon} space-h-10`;
@@ -28,19 +27,12 @@ const Title = ({ type }) => {
   }
 };
 
-const RenderBodyRawData = () => (
-  <div>
-    <FileBrowser />
-    <FileDropzone />
-  </div>
-);
-
 const Body = ({ type }) => {
   switch (type) {
     case MD_ADD.DL_MODEL:
       return null;
     case MD_ADD.RAW_DATA:
-      return <RenderBodyRawData />
+      return <FileBrowser />
     default:
       return null;
   }
@@ -59,12 +51,6 @@ const ModalAdd = ({ type, onChange }) => {
       <Modal.Body>
         <Body type={type} />
       </Modal.Body>
-
-      <Modal.Footer>
-        <Button onClick={onHide}>
-          Close
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };

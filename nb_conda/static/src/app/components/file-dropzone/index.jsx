@@ -20,9 +20,7 @@ class FileDropzone extends Component {
   render() {
     return (
       <Dropzone className="card-dropzone" onDrop={this.onDrop}>
-        <div className="text-dropzone">
-          Upload
-        </div>
+        <i className="fa fa-plus" />
       </Dropzone>
     );
   }
