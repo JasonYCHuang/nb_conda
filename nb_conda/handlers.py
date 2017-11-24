@@ -51,8 +51,11 @@ class RawDataHandler(BaseHandler):
 
     @web.authenticated
     @gen.coroutine
-    def post(self, path=''):
-        print('hallo')
+    def post(self, params='1', path='2'):
+        
+        print(self.get_body_arguments())
+        print(self.get_body_argument())
+        print(self.get_json_body())
         print(params)
         print(path)
 

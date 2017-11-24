@@ -3,7 +3,7 @@ import axios from 'axios';
 export const SELECT_METHOD = 'select_method';
 export const FETCH_METHOD_OPTS = 'fetch_method_opts';
 
-const hostUrl = 'http://localhost:8888/chemotion_dl';
+const hostUrl = '/chemotion_dl';
 
 const selectMethod = method => (
   {

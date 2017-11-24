@@ -1,15 +1,16 @@
 import axios from 'axios';
+import { request } from 'superagent';
 
 export const FETCH_RAW_DATA_FILES = 'fetch_raw_data_files';
 export const UPLOAD_RAW_DATA = 'upload_raw_data';
 
-const hostUrl = 'http://localhost:8888/chemotion_dl';
+const hostUrl = '/chemotion_dl';
 
 const fetchRawDataFiles = () => {
-  const request = axios.get(`${hostUrl}/raw_data`);
+  const req = axios.get(`${hostUrl}/raw_data`);
 
   return (dispatch) => {
-    request.then(({ data }) => {
+    req.then(({ data }) => {
       dispatch({
         type: FETCH_RAW_DATA_FILES,
         payload: data.files,
@@ -20,21 +21,82 @@ const fetchRawDataFiles = () => {
   };
 };
 
+/*
+import 'whatwg-fetch';
+
+const uploadRawData = (files) => {
+  const data = new FormData();
+  files.forEach((file)=> {
+    data.append(file.id || file.name, file);
+  });
+  const token = document.cookie.replace('_xsrf=', '');
+  data.append('_xsrf', token);
+  const url = `${hostUrl}/raw_data`;
+
+  console.log('start - - - - - ')
+  return ()=>fetch(url, {
+    credentials: 'same-origin',
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then((response) => {
+    if(response.ok == false) {
+      let msg = 'Files uploading failed: ';
+      if(response.status == 413) {
+        msg += 'File size limit exceeded. Max size is 50MB'
+      } else {
+        msg += response.statusText;
+      }
+    }
+  })
+};
+*/
+/*
 const uploadRawData = (files) => {
   const data = new FormData()
   files.forEach(f => data.append(f.id || f.name, f));
   const token = document.cookie.replace('_xsrf=', '');
-  data.append('_xsrf', token);
+  //data.append('_xsrf', token);
 
+  const url = `${hostUrl}/raw_data`;
+
+  axios({
+    method: 'post',
+    url: url,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'X-CSRFToken': token,
+    },
+    body: JSON.stringify(data),
+  });
+};
+*/
+
+const uploadRawData = (files) => {
+  const data = new FormData()
+  files.forEach(f => data.append(f.id || f.name, f));
+
+  const token = document.cookie.replace('_xsrf=', '');
+  const url = `${hostUrl}/raw_data`;
   const config = {
     headers: {
-      'content-type': 'multipart/form-data',
+      'X-CSRFToken': token,
+      'Content-Type': 'multipart/form-data',
     },
   };
 
-  const url = `${hostUrl}/raw_data`;
-  const request = axios.post(url, data);
-
+      // 'Accept': 'application/json',
+      // 'Content-Type': 'application/json',
+  const request = axios.post(url, data, config);
+  request.then((dt) => {
+    console.log(dt)
+  }).catch((err) => {
+    console.log(err);
+  });
   // TBD
 };
 
