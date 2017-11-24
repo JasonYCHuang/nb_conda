@@ -51,8 +51,9 @@ class RawDataHandler(BaseHandler):
 
     @web.authenticated
     @gen.coroutine
-    def pst(self):
-        print(self.get_json_body())
+    def post(self):
+        # print(self.get_json_body())
+        print('hallo POST')
 
 # -----------------------------------------------------------------------------
 # URL to handler mappings
