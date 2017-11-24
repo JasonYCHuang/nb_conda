@@ -9,6 +9,13 @@ class RawData():
         file_names = os.listdir(workspace + rd_folder)
         return self.__files_property(file_names)
 
+    def save_files(self, request):
+        for _, value in request.files.items():
+            file = value[0]
+            file_name = file['filename']
+            output_file = open(workspace + '/copy/' + file_name, 'wb')
+            output_file.write(file['body'])
+
     def __files_property(self, names):
         list_dir = []
         list_file = []

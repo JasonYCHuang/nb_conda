@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { request } from 'superagent';
+const request = require('superagent');
 
 export const FETCH_RAW_DATA_FILES = 'fetch_raw_data_files';
 export const UPLOAD_RAW_DATA = 'upload_raw_data';
@@ -54,28 +54,23 @@ const uploadRawData = (files) => {
   })
 };
 */
-/*
+
 const uploadRawData = (files) => {
-  const data = new FormData()
-  files.forEach(f => data.append(f.id || f.name, f));
+  // const data = new FormData()
+  // files.forEach(f => data.append(f.id || f.name, f));
   const token = document.cookie.replace('_xsrf=', '');
-  //data.append('_xsrf', token);
+  // //data.append('_xsrf', token);
 
   const url = `${hostUrl}/raw_data`;
 
-  axios({
-    method: 'post',
-    url: url,
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'X-CSRFToken': token,
-    },
-    body: JSON.stringify(data),
+  const req = request.post(url).set('X-CSRFToken', token);
+  files.forEach(file => {
+      req.attach(file.name, file);
   });
+  req.end(m => console.log(m));
 };
-*/
 
+/*
 const uploadRawData = (files) => {
   const data = new FormData()
   files.forEach(f => data.append(f.id || f.name, f));
@@ -99,5 +94,5 @@ const uploadRawData = (files) => {
   });
   // TBD
 };
-
+*/
 export { fetchRawDataFiles, uploadRawData };
