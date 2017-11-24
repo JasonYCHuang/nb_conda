@@ -26,6 +26,10 @@ class FileDropzone extends Component {
   }
 }
 
+const mapStateToProps = state => (
+  {}
+);
+
 const mapDispatchToProps = dispatch => (
   bindActionCreators({ uploadRawData }, dispatch)
 );
@@ -34,4 +38,4 @@ FileDropzone.propTypes = {
   uploadRawData: PropTypes.func.isRequired,
 };
 
-export default connect(_, mapDispatchToProps)(FileDropzone);
+export default connect(mapStateToProps, mapDispatchToProps)(FileDropzone);

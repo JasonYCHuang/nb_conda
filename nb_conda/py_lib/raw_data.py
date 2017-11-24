@@ -17,7 +17,10 @@ class RawData():
             output_file = open(file_path, 'wb')
             output_file.write(file['body'])
 
-        return self.list_files()
+    def delete_files(self, json):
+        for fn in json['files']:
+            file_path = workspace + rd_folder + '/' + fn
+            os.remove(file_path)
 
     def __files_property(self, names):
         list_dir = []

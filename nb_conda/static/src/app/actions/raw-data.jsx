@@ -21,8 +21,8 @@ const fetchRawDataFiles = () => {
 };
 
 const uploadRawData = (files) => {
-  const data = new FormData()
-  files.forEach(f => data.append(f.id || f.name, f));
+  const body = new FormData();
+  files.forEach(f => body.append(f.id || f.name, f));
 
   const token = document.cookie.replace('_xsrf=', '');
   const url = `${hostUrl}/raw_data`;
@@ -34,7 +34,7 @@ const uploadRawData = (files) => {
   };
 
   return (dispatch) => {
-    axios.post(url, data, config).then(({ data }) => {
+    axios.post(url, body, config).then(({ data }) => {
       dispatch({
         type: FETCH_RAW_DATA_FILES,
         payload: data.files,
@@ -45,4 +45,27 @@ const uploadRawData = (files) => {
   };
 };
 
-export { fetchRawDataFiles, uploadRawData };
+const deleteRawDataFiles = (files) => {
+  const body = { 'files': files };
+  const token = document.cookie.replace('_xsrf=', '');
+  const url = `${hostUrl}/raw_data`;
+  const config = {
+    headers: {
+      'X-CSRFToken': token,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  return (dispatch) => {
+    axios.put(url, body, config).then(({ data }) => {
+      dispatch({
+        type: FETCH_RAW_DATA_FILES,
+        payload: data.files,
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+};
+
+export { fetchRawDataFiles, uploadRawData, deleteRawDataFiles };
