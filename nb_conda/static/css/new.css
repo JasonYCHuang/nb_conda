@@ -57,3 +57,10 @@
   text-align: center;
   padding-top: 12px;
 }
+
+.btn-icon-only {
+  border-radius: 4px;
+  height: 28px;
+  width: 28px;
+  padding: 5px 8px;
+}

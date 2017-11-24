@@ -37,14 +37,14 @@ const RenderTable = ({ roles, onToggleCheck }) => (
 const RenderAction = ({ deletable, onRefresh, onDelete }) => {
   return (
     <div className="pull-right space-v-b-10">
-      <Button className="space-h-5" bsStyle="primary">
+      <Button className="space-h-5 btn-icon-only" bsStyle="primary">
         <FileDropzone />
       </Button>
-      <Button className="space-h-5" onClick={onRefresh}>
+      <Button className="space-h-5 btn-icon-only" onClick={onRefresh}>
         <i className="fa fa-refresh" />
       </Button>
       <Button
-        className="space-h-5"
+        className="space-h-5 btn-icon-only"
         bsStyle="danger"
         onClick={onDelete}
         disabled={!deletable}
