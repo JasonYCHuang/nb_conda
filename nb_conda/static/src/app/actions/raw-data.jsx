@@ -46,7 +46,7 @@ const uploadRawData = (files) => {
 };
 
 const deleteRawDataFiles = (files) => {
-  const body = { 'files': files };
+  const body = { files };
   const token = document.cookie.replace('_xsrf=', '');
   const url = `${hostUrl}/raw_data`;
   const config = {

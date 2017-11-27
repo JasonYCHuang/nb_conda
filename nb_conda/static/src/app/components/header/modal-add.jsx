@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import MD_ADD from '../constants/modal-add';
 import FileBrowser from '../file-browser';
@@ -32,7 +32,7 @@ const Body = ({ type }) => {
     case MD_ADD.DL_MODEL:
       return null;
     case MD_ADD.RAW_DATA:
-      return <FileBrowser />
+      return <FileBrowser />;
     default:
       return null;
   }

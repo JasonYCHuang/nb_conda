@@ -25,7 +25,7 @@ class Content extends Component {
             <Nav bsStyle="pills" stacked>
               <NavItem eventKey={0}>
                 <i className="fa fa-database" />
-                <span className="text-tab-stage" >Data</span>
+                <span className="text-tab-stage" >Learning Set</span>
               </NavItem>
               <NavItem eventKey={1}>
                 <i className="fa fa-magic" />

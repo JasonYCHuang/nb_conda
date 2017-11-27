@@ -14,9 +14,9 @@ class FileDropzone extends Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
-  onDrop(acceptedFiles, rejectedFiles) {
+  onDrop(acceptedFiles) {
     this.props.uploadRawData(acceptedFiles);
-  };
+  }
 
   render() {
     return (
@@ -29,7 +29,7 @@ class FileDropzone extends Component {
   }
 }
 
-const mapStateToProps = state => (
+const mapStateToProps = () => (
   {}
 );
 

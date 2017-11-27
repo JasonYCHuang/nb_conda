@@ -34,24 +34,22 @@ const RenderTable = ({ roles, onToggleCheck }) => (
   </Table>
 );
 
-const RenderAction = ({ deletable, onRefresh, onDelete }) => {
-  return (
-    <div className="pull-right space-v-b-10">
-      <FileDropzone />
-      <Button className="space-h-5 btn-icon-only" onClick={onRefresh}>
-        <i className="fa fa-refresh" />
-      </Button>
-      <Button
-        className="space-h-5 btn-icon-only"
-        bsStyle="danger"
-        onClick={onDelete}
-        disabled={!deletable}
-      >
-        <i className="fa fa-trash" />
-      </Button>
-    </div>
-  );
-};
+const RenderAction = ({ deletable, onRefresh, onDelete }) => (
+  <div className="pull-right space-v-b-10">
+    <FileDropzone />
+    <Button className="space-h-5 btn-icon-only" onClick={onRefresh}>
+      <i className="fa fa-refresh" />
+    </Button>
+    <Button
+      className="space-h-5 btn-icon-only"
+      bsStyle="danger"
+      onClick={onDelete}
+      disabled={!deletable}
+    >
+      <i className="fa fa-trash" />
+    </Button>
+  </div>
+);
 
 const RenderNoFiles = () => (
   <Table striped bordered hover>
@@ -66,7 +64,7 @@ class FileBrowser extends Component {
     super(props);
     this.state = {
       ckdItems: [],
-    }
+    };
 
     this.onRefresh = this.onRefresh.bind(this);
     this.onToggleCheck = this.onToggleCheck.bind(this);
@@ -98,7 +96,7 @@ class FileBrowser extends Component {
       this.setState({ ckdItems: [...cis, item] });
     } else {
       this.setState({
-        ckdItems: [...cis.slice(0, idx), ...cis.slice(idx + 1)]
+        ckdItems: [...cis.slice(0, idx), ...cis.slice(idx + 1)],
       });
     }
   }
