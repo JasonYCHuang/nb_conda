@@ -12,21 +12,21 @@ const iconTyp = isDir => (
 );
 
 const convertBtn = () => (
-  <Button bsStyle="primary">
+  <Button bsStyle="primary" className="btn-convert">
     <i className="fa fa-database space-h-5" />
     <span>Convert</span>
   </Button>
 );
 
 const processingBtn = () => (
-  <Button disabled>
+  <Button className="btn-convert" disabled>
     <i className="fa fa-cogs space-h-5" />
     <span>Processing</span>
   </Button>
 );
 
 const readyBtn = () => (
-  <Button bsStyle="success" disabled>
+  <Button bsStyle="success" className="btn-convert" disabled>
     <i className="fa fa-check-circle-o space-h-5" />
     <span>Available</span>
   </Button>
@@ -43,7 +43,7 @@ const statusBtn = (status) => {
   }
 };
 
-const renderRows = (roles) => (
+const renderRows = roles => (
   roles.map((r, idx) => (
     <tr key={`${r.name}-${idx}`} >
       <td>
@@ -93,7 +93,7 @@ class CandidateSet extends Component {
     const title = 'Raw Data';
 
     return (
-      <Panel header={title}>
+      <Panel header={title} className="candidate">
         <RenderTable
           roles={rawData.files}
         />
