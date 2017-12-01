@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import MD_ADD from '../constants/modal-add';
-import FileBrowser from '../file-browser';
+import AddRawData from '../file-browser/add-raw-data';
 
 const TitleProto = ({ icon, text }) => {
   const iconClass = `fa fa-${icon} space-h-10`;
@@ -32,7 +32,7 @@ const Body = ({ type }) => {
     case MD_ADD.DL_MODEL:
       return null;
     case MD_ADD.RAW_DATA:
-      return <FileBrowser />;
+      return <AddRawData />;
     default:
       return null;
   }
