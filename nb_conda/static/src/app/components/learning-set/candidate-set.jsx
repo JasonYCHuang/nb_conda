@@ -4,18 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel, Table, Button } from 'react-bootstrap';
 import { fetchRawDataFiles } from '../../actions/raw-data';
+import ConvertBtn from './convert-btn';
 
 const iconTyp = isDir => (
   isDir
     ? <i className="fa fa-folder-o" />
     : <i className="fa fa-file-text-o " />
-);
-
-const convertBtn = () => (
-  <Button bsStyle="primary" className="w-110">
-    <i className="fa fa-database space-h-5" />
-    <span>Convert</span>
-  </Button>
 );
 
 const processingBtn = () => (
@@ -32,10 +26,11 @@ const readyBtn = () => (
   </Button>
 );
 
-const statusBtn = (status) => {
+const statusBtn = (file) => {
+  const status = 0;
   switch (status) {
     case 0:
-      return convertBtn();
+      return <ConvertBtn file={file} />;
     case 1:
       return processingBtn();
     default:
@@ -43,11 +38,11 @@ const statusBtn = (status) => {
   }
 };
 
-const renderRows = roles => (
-  roles.map((r, idx) => (
+const renderRows = (rows) => (
+  rows.map((r, idx) => (
     <tr key={`${r.name}-${idx}`} >
       <td className="w-120">
-        { statusBtn(idx) }
+        { statusBtn(r) }
       </td>
       <td>
         <span className="space-h-5">{iconTyp(r.isDir)}</span>
@@ -59,10 +54,10 @@ const renderRows = roles => (
   ))
 );
 
-const RenderTable = ({ roles }) => {
-  const content = roles.length === 0
+const RenderTable = ({ rows }) => {
+  const content = rows.length === 0
     ? <tr><td>No file founded</td></tr>
-    : renderRows(roles);
+    : renderRows(rows);
 
   return (
     <Table striped hover className="brd-all">
@@ -70,6 +65,18 @@ const RenderTable = ({ roles }) => {
     </Table>
   );
 };
+
+const RenderTitle = ({ onRefresh }) => (
+  <div>
+    <span>Raw Data</span>
+    <Button
+      className="space-h-5 btn-icon-only btn-right btn-panel-middle"
+      onClick={onRefresh}
+    >
+      <i className="fa fa-refresh" />
+    </Button>
+  </div>
+);
 
 class CandidateSet extends Component {
   constructor(props) {
@@ -90,12 +97,12 @@ class CandidateSet extends Component {
 
   render() {
     const { rawData } = this.props;
-    const title = 'Raw Data';
+    const title = <RenderTitle onRefresh={this.onRefresh} />;
 
     return (
       <Panel header={title} className="candidate">
         <RenderTable
-          roles={rawData.files}
+          rows={rawData.files}
         />
       </Panel>
     );
@@ -120,7 +127,11 @@ CandidateSet.propTypes = {
 };
 
 RenderTable.propTypes = {
-  roles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  rows: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+RenderTitle.propTypes = {
+  onRefresh: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CandidateSet);

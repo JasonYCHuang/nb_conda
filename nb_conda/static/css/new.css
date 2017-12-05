@@ -74,6 +74,14 @@
   border: 1px solid #ddd;
 }
 
+.btn-right {
+  float: right;
+}
+
+.btn-panel-middle {
+  margin-top: -5px;
+}
+
 /* bootstrap fix */
 .btn {
   border-radius: 4px;
