@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from 'react-bootstrap';
-import { fetchRawDataFiles } from '../../actions/raw-data';
+import { fetchRawFiles } from '../../actions/raw-file';
 
 const ConvertBtn = (props) => {
-  const onClick = () => props.fetchRawDataFiles();
+  const onClick = () => props.fetchRawFiles();
 
   return (
     <Button bsStyle="primary" className="w-110" onClick={onClick} >
@@ -18,12 +18,12 @@ const ConvertBtn = (props) => {
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    fetchRawDataFiles,
+    fetchRawFiles,
   }, dispatch)
 );
 
 ConvertBtn.propTypes = {
-  fetchRawDataFiles: PropTypes.func.isRequired,
+  fetchRawFiles: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(ConvertBtn);

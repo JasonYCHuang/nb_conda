@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import MD_ADD from '../constants/modal-add';
-import AddRawData from '../file-browser/add-raw-data';
+import AddRawFile from '../file-browser/add-raw-file';
 
 const TitleProto = ({ icon, text }) => {
   const iconClass = `fa fa-${icon} space-h-10`;
@@ -20,8 +20,8 @@ const Title = ({ type }) => {
   switch (type) {
     case MD_ADD.DL_MODEL:
       return <TitleProto icon="magic" text="Deep Learning Model" />;
-    case MD_ADD.RAW_DATA:
-      return <TitleProto icon="database" text="Raw Data" />;
+    case MD_ADD.RAW_FILE:
+      return <TitleProto icon="database" text="Raw File" />;
     default:
       return null;
   }
@@ -31,8 +31,8 @@ const Body = ({ type }) => {
   switch (type) {
     case MD_ADD.DL_MODEL:
       return null;
-    case MD_ADD.RAW_DATA:
-      return <AddRawData />;
+    case MD_ADD.RAW_FILE:
+      return <AddRawFile />;
     default:
       return null;
   }

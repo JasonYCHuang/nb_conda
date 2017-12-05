@@ -1,12 +1,12 @@
-import { FETCH_RAW_DATA_FILES } from '../actions/raw-data';
+import { FETCH_RAW_FILES } from '../actions/raw-file';
 
 const defaultState = {
   files: [],
 };
 
-const RawDataReducer = (state = defaultState, action) => {
+const RawFileReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case FETCH_RAW_DATA_FILES:
+    case FETCH_RAW_FILES:
       return Object.assign({}, state, {
         files: action.payload,
       });
@@ -15,4 +15,4 @@ const RawDataReducer = (state = defaultState, action) => {
   }
 };
 
-export default RawDataReducer;
+export default RawFileReducer;

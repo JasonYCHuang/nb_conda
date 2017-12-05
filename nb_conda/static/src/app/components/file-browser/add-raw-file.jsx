@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RenderTable, RenderAction } from './components';
-import { fetchRawDataFiles, deleteRawDataFiles } from '../../actions/raw-data';
+import { fetchRawFiles, deleteRawFiles } from '../../actions/raw-file';
 
-class AddRawData extends Component {
+class AddRawFile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,18 +18,18 @@ class AddRawData extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchRawDataFiles();
+    this.props.fetchRawFiles();
   }
 
   onRefresh() {
-    this.props.fetchRawDataFiles();
+    this.props.fetchRawFiles();
   }
 
   onDelete() {
     const { ckdItems } = this.state;
     const msg = `Are you sure to delete ${ckdItems.length} files`;
     if (confirm(msg)) {
-      this.props.deleteRawDataFiles(ckdItems);
+      this.props.deleteRawFiles(ckdItems);
       this.setState({ ckdItems: [] });
     }
   }
@@ -48,7 +48,7 @@ class AddRawData extends Component {
   }
 
   render() {
-    const { rawData } = this.props;
+    const { rawFile } = this.props;
     const deletable = this.state.ckdItems.length > 0;
 
     return (
@@ -59,7 +59,7 @@ class AddRawData extends Component {
           onDelete={this.onDelete}
         />
         <RenderTable
-          roles={rawData.files}
+          roles={rawFile.files}
           onToggleCheck={this.onToggleCheck}
         />
       </div>
@@ -68,22 +68,22 @@ class AddRawData extends Component {
 }
 
 const mapStateToProps = state => (
-  { rawData: state.rawData }
+  { rawFile: state.rawFile }
 );
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    fetchRawDataFiles,
-    deleteRawDataFiles,
+    fetchRawFiles,
+    deleteRawFiles,
   }, dispatch)
 );
 
-AddRawData.propTypes = {
-  rawData: PropTypes.shape({
+AddRawFile.propTypes = {
+  rawFile: PropTypes.shape({
     files: PropTypes.array.isRequired,
   }).isRequired,
-  fetchRawDataFiles: PropTypes.func.isRequired,
-  deleteRawDataFiles: PropTypes.func.isRequired,
+  fetchRawFiles: PropTypes.func.isRequired,
+  deleteRawFiles: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddRawData);
+export default connect(mapStateToProps, mapDispatchToProps)(AddRawFile);

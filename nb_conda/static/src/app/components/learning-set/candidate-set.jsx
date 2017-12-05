@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel, Table, Button } from 'react-bootstrap';
-import { fetchRawDataFiles } from '../../actions/raw-data';
+import { fetchRawFiles } from '../../actions/raw-file';
 import ConvertBtn from './convert-btn';
 
 const iconTyp = isDir => (
@@ -68,7 +68,7 @@ const RenderTable = ({ rows }) => {
 
 const RenderTitle = ({ onRefresh }) => (
   <div>
-    <span>Raw Data</span>
+    <span>Raw File</span>
     <Button
       className="space-h-5 btn-icon-only btn-right btn-panel-middle"
       onClick={onRefresh}
@@ -88,21 +88,21 @@ class CandidateSet extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchRawDataFiles();
+    this.props.fetchRawFiles();
   }
 
   onRefresh() {
-    this.props.fetchRawDataFiles();
+    this.props.fetchRawFiles();
   }
 
   render() {
-    const { rawData } = this.props;
+    const { rawFile } = this.props;
     const title = <RenderTitle onRefresh={this.onRefresh} />;
 
     return (
       <Panel header={title} className="candidate">
         <RenderTable
-          rows={rawData.files}
+          rows={rawFile.files}
         />
       </Panel>
     );
@@ -110,20 +110,20 @@ class CandidateSet extends Component {
 }
 
 const mapStateToProps = state => (
-  { rawData: state.rawData }
+  { rawFile: state.rawFile }
 );
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    fetchRawDataFiles,
+    fetchRawFiles,
   }, dispatch)
 );
 
 CandidateSet.propTypes = {
-  rawData: PropTypes.shape({
+  rawFile: PropTypes.shape({
     files: PropTypes.array.isRequired,
   }).isRequired,
-  fetchRawDataFiles: PropTypes.func.isRequired,
+  fetchRawFiles: PropTypes.func.isRequired,
 };
 
 RenderTable.propTypes = {
