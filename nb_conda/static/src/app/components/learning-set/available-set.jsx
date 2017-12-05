@@ -22,10 +22,6 @@ class AvailableSet extends Component {
   }
 }
 
-const mapStateToProps = state => (
-  { }
-);
-
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
   }, dispatch)
@@ -34,4 +30,4 @@ const mapDispatchToProps = dispatch => (
 AvailableSet.propTypes = {
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AvailableSet);
+export default connect(null, mapDispatchToProps)(AvailableSet);

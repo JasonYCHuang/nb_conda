@@ -30,7 +30,7 @@ const statusBtn = (file) => {
   const status = 0;
   switch (status) {
     case 0:
-      return <ConvertBtn file={file} />;
+      return <ConvertBtn name={file.name} />;
     case 1:
       return processingBtn();
     default:
