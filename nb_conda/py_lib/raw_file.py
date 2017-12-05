@@ -4,7 +4,7 @@ from datetime import datetime
 workspace = '/Users/jason/workspace/python/dl-platform'
 rd_folder = '/data'
 
-class RawData():
+class RawFile():
     def list_files(self):
         file_names = os.listdir(workspace + rd_folder)
         return self.__files_property(file_names)
