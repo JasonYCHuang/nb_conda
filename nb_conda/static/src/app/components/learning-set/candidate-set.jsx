@@ -12,21 +12,21 @@ const iconTyp = isDir => (
 );
 
 const convertBtn = () => (
-  <Button bsStyle="primary" className="btn-convert">
+  <Button bsStyle="primary" className="w-110">
     <i className="fa fa-database space-h-5" />
     <span>Convert</span>
   </Button>
 );
 
 const processingBtn = () => (
-  <Button className="btn-convert" disabled>
+  <Button className="w-110" disabled>
     <i className="fa fa-cogs space-h-5" />
     <span>Processing</span>
   </Button>
 );
 
 const readyBtn = () => (
-  <Button bsStyle="success" className="btn-convert" disabled>
+  <Button bsStyle="success" className="w-110" disabled>
     <i className="fa fa-check-circle-o space-h-5" />
     <span>Available</span>
   </Button>
@@ -46,7 +46,7 @@ const statusBtn = (status) => {
 const renderRows = roles => (
   roles.map((r, idx) => (
     <tr key={`${r.name}-${idx}`} >
-      <td>
+      <td className="w-120">
         { statusBtn(idx) }
       </td>
       <td>
@@ -65,7 +65,7 @@ const RenderTable = ({ roles }) => {
     : renderRows(roles);
 
   return (
-    <Table striped bordered hover>
+    <Table striped hover className="brd-all">
       <tbody>{ content }</tbody>
     </Table>
   );

@@ -9,7 +9,7 @@
 
 .card-content .nav {
   border: 1px solid #337ab7;
-  border-radius: 5px;
+  border-radius: 4px;
   margin-right: 5px;
 }
 
@@ -57,12 +57,28 @@
 }
 
 .btn-icon-only {
-  border-radius: 4px;
   height: 28px;
   width: 28px;
   padding: 5px 8px;
 }
 
-.candidate .btn-convert {
+.w-110 {
   width: 110px;
+}
+
+.w-120 {
+  width: 120px;
+}
+
+.brd-all {
+  border: 1px solid #ddd;
+}
+
+/* bootstrap fix */
+.btn {
+  border-radius: 4px;
+}
+
+.panel {
+  border-radius: 4px;
 }
