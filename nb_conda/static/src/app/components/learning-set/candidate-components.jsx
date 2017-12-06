@@ -16,7 +16,7 @@ const processingBtn = () => (
   </Button>
 );
 
-const readyBtn = () => (
+const availableBtn = () => (
   <Button bsStyle="success" className="w-110" disabled>
     <i className="fa fa-check-circle-o space-h-5" />
     <span>Available</span>
@@ -24,12 +24,14 @@ const readyBtn = () => (
 );
 
 const statusBtn = (file) => {
-  if (file.inPickle) {
-    return readyBtn();
-  } else if (file.inDB) {
-    return processingBtn();
+  switch (file.status) {
+    case 'available':
+      return availableBtn();
+    case 'processing':
+      return processingBtn();
+    default:
+      return <ConvertBtn name={file.name} />;
   }
-  return <ConvertBtn name={file.name} />;
 };
 
 const renderRows = rows => (

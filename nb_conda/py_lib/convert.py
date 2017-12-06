@@ -57,6 +57,7 @@ class Convert():
 			chunksize=1000,
 			if_exists='append',
 		)
+
 	def __load_db_config(self, engine, target):
 		detail = { '__tablename__': target, '__table_args__': { 'autoload_with': engine }, }
 		target_class = type(target, (Base,), detail)
