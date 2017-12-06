@@ -66,8 +66,10 @@ const uploadRawFiles = (files) => {
     },
   };
 
-  return (dispatch) => {
-    axios.post(url, body, config).then(({ data }) => {
+  return (dispatch, getState) => {
+    const [topic, method] = selectedToTopicMethod(getState);
+    const params = topic && method ? `?topic=${topic}&method=${method}` : '';
+    axios.post(url + params, body, config).then(({ data }) => {
       dispatch({
         type: FETCH_RAW_FILES,
         payload: data.files,
@@ -89,8 +91,10 @@ const deleteRawFiles = (files) => {
     },
   };
 
-  return (dispatch) => {
-    axios.put(url, body, config).then(({ data }) => {
+  return (dispatch, getState) => {
+    const [topic, method] = selectedToTopicMethod(getState);
+    const params = topic && method ? `?topic=${topic}&method=${method}` : '';
+    axios.put(url + params, body, config).then(({ data }) => {
       dispatch({
         type: FETCH_RAW_FILES,
         payload: data.files,

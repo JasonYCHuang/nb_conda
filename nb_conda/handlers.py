@@ -59,14 +59,18 @@ class RawFileHandler(BaseHandler):
     @web.authenticated
     @gen.coroutine
     def post(self):
+        topic = self.get_argument("topic", None)
+        method = self.get_argument("method", None)
         self.raw_file.save_files(self.request)
-        self.finish(json.dumps({ 'files': self.raw_file.list_files() }))
+        self.finish(json.dumps({ 'files': self.raw_file.list_files(topic, method) }))
 
     @web.authenticated
     @gen.coroutine
     def put(self):
+        topic = self.get_argument("topic", None)
+        method = self.get_argument("method", None)
         self.raw_file.delete_files(self.get_json_body())
-        self.finish(json.dumps({ 'files': self.raw_file.list_files() }))
+        self.finish(json.dumps({ 'files': self.raw_file.list_files(topic, method) }))
 
 class ConvertHandler(BaseHandler):
     @web.authenticated
@@ -76,7 +80,7 @@ class ConvertHandler(BaseHandler):
         topic = self.get_argument("topic", None)
         method = self.get_argument("method", None)
         self.convert.raw_files(target, topic, method)
-        self.finish(json.dumps({ 'files': self.raw_file.list_files() }))
+        self.finish(json.dumps({ 'files': self.raw_file.list_files(topic, method) }))
 
 # -----------------------------------------------------------------------------
 # URL to handler mappings

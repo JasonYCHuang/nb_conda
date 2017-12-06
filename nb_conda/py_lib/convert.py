@@ -2,13 +2,12 @@ import os
 import pandas as pd
 from datetime import datetime
 from sqlalchemy.sql import text
+from .manager import *
 from .lib.database import *
 from .lib.fp_center import *
 from .lib.rdt_mapping import *
 from .lib.pickle_storage import *
 
-workspace = '/Users/jason/workspace/python/dl-platform'
-rd_folder = '/data'
 class RxnTemplate(Base):
     __tablename__ = 'template'
     
@@ -21,29 +20,22 @@ class RxnTemplate(Base):
     centre_id = Column(Integer, ForeignKey('centers.id'), index=True)
 
 class Convert():
-	def raw_files(self, target, topic, method):
+	def raw_files(self, ori_target, topic, method):
 		# TBD return if target, topic, method none
-		target, extension = os.path.splitext(target)
-		work_path = self.__work_path(topic, method)
-		db_path = self.__db_path(work_path)
+		target, extension = os.path.splitext(ori_target)
+		db_path, project_path, csv_path = generate_paths(topic, method, target, extension)
 		engine = init_engine(db_path)
-		self.__db_exits(db_path, engine)
-		self.__add_table_db(target, db_path, engine)
-		self.__load_to_db(engine, target, extension)
-		self.__mapping(engine, target, work_path)
-		self.__pickle(engine, target, work_path)
+		self.__db_exits(engine, db_path)
+		self.__add_table_db(engine, target, db_path)
+		self.__load_csv_to_db(engine, target, csv_path)
+		self.__mapping(engine, target, project_path)
+		self.__pickle(engine, target, project_path)
 
-	def __db_path(self, work_path):
-		return work_path + '/db/sql.db'
-
-	def __work_path(self, topic, method):
-		return workspace + '/tp_%s/mt_%s' % (topic, method)
-
-	def __db_exits(self, db_path, engine):
+	def __db_exits(self, engine, db_path):
 		if not os.path.exists(db_path):
 			Base.metadata.create_all(engine)
 
-	def __add_table_db(self, target, db_path, engine):
+	def __add_table_db(self, engine, target, db_path):
 		# TBD return if check table exist
 		# TBD verify target
 		text_drop = 'DROP TABLE IF EXISTS %s' % target
@@ -55,8 +47,7 @@ class Convert():
 			con.execute(text(text_index))
 			# FOREIGN KEY centre_id
 
-	def __load_to_db(self, engine, target, extension):
-		csv_path = workspace + rd_folder + '/' + target + extension
+	def __load_csv_to_db(self, engine, target, csv_path):
 		df_t = pd.read_csv(csv_path, header=None)
 		df_t.columns = ['smiles']
 		df_t.to_sql(
@@ -73,12 +64,12 @@ class Convert():
 		session = init_session(engine)
 		return [session, target_class]
 
-	def __mapping(self, engine, target, work_path):
+	def __mapping(self, engine, target, project_path):
 		session, target_class = self.__load_db_config(engine, target)
 		rxns = session.query(target_class).order_by(target_class.id)
 		for idx, rxn in enumerate(rxns):
 			try:
-				rdt_map(rxn.smiles, work_path)
+				rdt_map(rxn.smiles, project_path)
 				if no_xml_present(): continue
 
 				aam, centre_l1, centre_l2, centre_l3 = rdt_parse()
@@ -91,9 +82,9 @@ class Convert():
 				print(e)
 				continue
 
-	def __pickle(self, engine, target, work_path):
+	def __pickle(self, engine, target, project_path):
 		session, target_class = self.__load_db_config(engine, target)
 		rxns = session.query(target_class).order_by(target_class.id)
 		data = np_fps_centers(rxns)
-		file_name = work_path + '/pickle/%s.pickle' % target
-		save_to_pickle(data, file_name)
+		pickle_path = project_path + '/pickle/%s.pickle' % target
+		save_to_pickle(data, pickle_path)

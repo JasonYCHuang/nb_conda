@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from .lib.database import *
 
 workspace = '/Users/jason/workspace/python/dl-platform'
 rd_folder = '/data'
@@ -55,6 +56,10 @@ class RawFile():
             'inDB': in_db,
             'inPickle': in_pickle,
         }
+
+    def __in_db():
+        engine = init_engine(db_path)
+        metadata = MetaData()
 
     def __in_pickle(self, file, project_path):
         target, extension = os.path.splitext(file)
