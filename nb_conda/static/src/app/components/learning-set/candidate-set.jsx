@@ -27,18 +27,15 @@ const readyBtn = () => (
 );
 
 const statusBtn = (file) => {
-  const status = 0;
-  switch (status) {
-    case 0:
-      return <ConvertBtn name={file.name} />;
-    case 1:
-      return processingBtn();
-    default:
-      return readyBtn();
+  if (file.inPickle) {
+    return readyBtn();
+  } else if (file.inDB) {
+    return processingBtn();
   }
+  return <ConvertBtn name={file.name} />;
 };
 
-const renderRows = (rows) => (
+const renderRows = rows => (
   rows.map((r, idx) => (
     <tr key={`${r.name}-${idx}`} >
       <td className="w-120">

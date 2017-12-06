@@ -6,12 +6,13 @@ const hostUrl = '/chemotion_dl';
 
 const selectedToTopicMethod = (getState) => {
   const { options, selected } = getState().method;
-  return options.map((opt) => {
+  const target = options.map((opt) => {
     if (opt.value === selected) {
       return opt.label;
     }
     return null;
-  }).filter(o => o != null)[0].split(' >> ');
+  }).filter(o => o != null)[0];
+  return target ? target.split(' >> ') : [null, null];
 };
 
 const convertRawFile = (target) => {
@@ -34,9 +35,14 @@ const convertRawFile = (target) => {
 };
 
 const fetchRawFiles = () => {
-  const request = axios.get(`${hostUrl}/raw_files`);
+  const baseUrl = `${hostUrl}/raw_files`;
 
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const [topic, method] = selectedToTopicMethod(getState);
+    const params = topic && method
+      ? `?topic=${topic}&method=${method}` : '';
+    const request = axios.get(baseUrl + params);
+
     request.then(({ data }) => {
       dispatch({
         type: FETCH_RAW_FILES,

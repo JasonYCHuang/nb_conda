@@ -5,9 +5,10 @@ workspace = '/Users/jason/workspace/python/dl-platform'
 rd_folder = '/data'
 
 class RawFile():
-    def list_files(self):
+    def list_files(self, topic, method):
+        project_path = '/tp_%s/mt_%s' % (topic, method)
         file_names = os.listdir(workspace + rd_folder)
-        return self.__files_property(file_names)
+        return self.__files_property(file_names, project_path)
 
     def save_files(self, request):
         for _, value in request.files.items():
@@ -22,31 +23,43 @@ class RawFile():
             file_path = workspace + rd_folder + '/' + fn
             os.remove(file_path)
 
-    def __files_property(self, names):
+    def __files_property(self, names, project_path):
         list_dir = []
         list_file = []
         for fn in names:
             if not fn.startswith('.'):
-                fp = self.__file_property(fn)
+                fp = self.__file_property(fn, project_path)
                 list_dir.append(fp) if fp['isDir'] else list_file.append(fp)
         return list_dir + list_file
 
     def __path(self, file):
         return workspace + rd_folder + '/' + file
 
-    def __file_property(self, file):
+    def __pickle_path(self, target, project_path):
+        return workspace + project_path + '/pickle/' + target + '.pickle'
+
+    def __file_property(self, file, project_path):
         path = self.__path(file)
         is_dir = os.path.isdir(path)
         fp = os.stat(path)
         size = self.__readable_byte(fp.st_size)
         mt = os.path.getmtime(path)
         m_time = self.__pretty_time(mt)
+        in_pickle = self.__in_pickle(file, project_path)
+        in_db = False
         return {
             'name': file,
             'isDir': is_dir, 
             'size': size,
             'modifiedAt': m_time,
+            'inDB': in_db,
+            'inPickle': in_pickle,
         }
+
+    def __in_pickle(self, file, project_path):
+        target, extension = os.path.splitext(file)
+        pickle_path = self.__pickle_path(target, project_path)
+        return os.path.isfile(pickle_path)
 
     def __readable_byte(self, num):
         for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:

@@ -52,7 +52,9 @@ class RawFileHandler(BaseHandler):
     @web.authenticated
     @json_errors
     def get(self):
-        self.finish(json.dumps({ 'files': self.raw_file.list_files() }))
+        topic = self.get_argument("topic", None)
+        method = self.get_argument("method", None)
+        self.finish(json.dumps({ 'files': self.raw_file.list_files(topic, method) }))
 
     @web.authenticated
     @gen.coroutine
