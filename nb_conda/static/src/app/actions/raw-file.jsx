@@ -39,8 +39,7 @@ const fetchRawFiles = () => {
 
   return (dispatch, getState) => {
     const [topic, method] = selectedToTopicMethod(getState);
-    const params = topic && method
-      ? `?topic=${topic}&method=${method}` : '';
+    const params = topic && method ? `?topic=${topic}&method=${method}` : '';
     const request = axios.get(baseUrl + params);
 
     request.then(({ data }) => {
