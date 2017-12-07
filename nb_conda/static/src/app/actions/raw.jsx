@@ -1,10 +1,12 @@
 import axios from 'axios';
+import updArrElement from '../helpers/utils_array';
 
 export const FETCH_RAW_FILES = 'fetch_raw_files';
+export const UPDATE_RAW_FILES = 'update_raw_files';
 
 const hostUrl = '/chemotion_dl';
 
-const selectedToTopicMethod = (getState) => {
+const convToTopMet = (getState) => {
   const { options, selected } = getState().method;
   const target = options.map((opt) => {
     if (opt.value === selected) {
@@ -15,11 +17,21 @@ const selectedToTopicMethod = (getState) => {
   return target ? target.split(' >> ') : [null, null];
 };
 
+const dpFlagAsProcessing = (dispatch, getState, target) => {
+  const { files } = getState().rawFile;
+  const idx = files.findIndex(f => f.name === target);
+  const updFile = Object.assign({}, files[idx], { status: 'processing' });
+  const newFiles = updArrElement(files, idx, updFile);
+  dispatch({ type: UPDATE_RAW_FILES, payload: newFiles });
+};
+
 const convertRawFile = (target) => {
   const baseUrl = `${hostUrl}/raw_files/convert`;
 
   return (dispatch, getState) => {
-    const [topic, method] = selectedToTopicMethod(getState);
+    dpFlagAsProcessing(dispatch, getState, target);
+
+    const [topic, method] = convToTopMet(getState);
     const params = `?target=${target}&topic=${topic}&method=${method}`;
     const request = axios.get(baseUrl + params);
 
@@ -38,7 +50,7 @@ const fetchRawFiles = () => {
   const baseUrl = `${hostUrl}/raw_files`;
 
   return (dispatch, getState) => {
-    const [topic, method] = selectedToTopicMethod(getState);
+    const [topic, method] = convToTopMet(getState);
     const params = topic && method ? `?topic=${topic}&method=${method}` : '';
     const request = axios.get(baseUrl + params);
 
@@ -67,7 +79,7 @@ const uploadRawFiles = (files) => {
   };
 
   return (dispatch, getState) => {
-    const [topic, method] = selectedToTopicMethod(getState);
+    const [topic, method] = convToTopMet(getState);
     const params = topic && method ? `?topic=${topic}&method=${method}` : '';
     axios.post(url + params, body, config).then(({ data }) => {
       dispatch({
@@ -92,7 +104,7 @@ const deleteRawFiles = (files) => {
   };
 
   return (dispatch, getState) => {
-    const [topic, method] = selectedToTopicMethod(getState);
+    const [topic, method] = convToTopMet(getState);
     const params = topic && method ? `?topic=${topic}&method=${method}` : '';
     axios.put(url + params, body, config).then(({ data }) => {
       dispatch({
