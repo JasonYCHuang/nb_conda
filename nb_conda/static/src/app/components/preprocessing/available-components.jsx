@@ -64,7 +64,7 @@ const RenderTable = ({ rows }) => {
 
 const RenderTitle = ({ onRefresh }) => (
   <div>
-    <span>Raw File</span>
+    <span>Available Set</span>
     <Button
       className="space-h-5 btn-icon-only btn-right btn-panel-middle"
       onClick={onRefresh}

@@ -1,21 +1,11 @@
 import axios from 'axios';
 import updArrElement from '../helpers/utils_array';
+import convToTopMet from '../helpers/utils_biz';
 
 export const FETCH_RAW = 'fetch_raw';
 export const UPDATE_RAW = 'update_raw';
 
 const hostUrl = '/chemotion_dl';
-
-const convToTopMet = (getState) => {
-  const { options, selected } = getState().method;
-  const target = options.map((opt) => {
-    if (opt.value === selected) {
-      return opt.label;
-    }
-    return null;
-  }).filter(o => o != null)[0];
-  return target ? target.split(' >> ') : [null, null];
-};
 
 const dpFlagAsProcessing = (dispatch, getState, target) => {
   const { files } = getState().raw;

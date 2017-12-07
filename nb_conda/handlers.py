@@ -24,6 +24,7 @@ from tornado import web, gen
 
 from .py_lib.select_method import SelectMethod
 from .py_lib.raw_file import RawFile
+from .py_lib.set_file import SetFile
 from .py_lib.convert import Convert
 
 NS = r'chemotion_dl'
@@ -38,6 +39,10 @@ class BaseHandler(APIHandler):
         return self.settings['raw_file']
 
     @property
+    def set_file(self):
+        return self.settings['set_file']
+
+    @property
     def convert(self):
         return self.settings['convert']
 
@@ -47,6 +52,13 @@ class SelectMethodHandler(BaseHandler):
     def get(self):
         self.finish(json.dumps({ 'tree': self.select_method.tree() }))
 
+class SetFileHandler(BaseHandler):
+    @web.authenticated
+    @json_errors
+    def get(self):
+        topic = self.get_argument("topic", None)
+        method = self.get_argument("method", None)
+        self.finish(json.dumps({ 'files': self.set_file.list_files(topic, method) }))
 
 class RawFileHandler(BaseHandler):
     @web.authenticated
@@ -90,12 +102,14 @@ default_handlers = [
     (r"/select_methods", SelectMethodHandler),
     (r"/raw_files/convert", ConvertHandler),
     (r"/raw_files", RawFileHandler),
+    (r"/set_files", SetFileHandler),
 ]
 
 def load_jupyter_server_extension(nbapp):
     webapp = nbapp.web_app
     webapp.settings['select_method'] = SelectMethod()
     webapp.settings['raw_file'] = RawFile()
+    webapp.settings['set_file'] = SetFile()
     webapp.settings['convert'] = Convert()
 
     base_url = webapp.settings['base_url']

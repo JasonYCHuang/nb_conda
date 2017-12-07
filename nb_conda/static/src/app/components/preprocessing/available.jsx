@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
-import { fetchRaw } from '../../actions/raw';
+import { fetchSet } from '../../actions/set';
 import { RenderTable, RenderTitle } from './available-components';
 
 class Available extends Component {
@@ -19,45 +19,45 @@ class Available extends Component {
     const pMethod = this.props.method;
     const nMethod = nextProps.method;
     if (pMethod !== nMethod) {
-      this.props.fetchRaw();
+      this.props.fetchSet();
     }
   }
 
   onRefresh() {
-    this.props.fetchRaw();
+    this.props.fetchSet();
   }
 
   render() {
-    const { raw } = this.props;
+    const { set } = this.props;
     const title = <RenderTitle onRefresh={this.onRefresh} />;
 
     return (
       <Panel header={title} className="available">
-        <RenderTable rows={raw.files} />
+        <RenderTable rows={set.files} />
       </Panel>
     );
   }
 }
 
 const mapStateToProps = state => (
-  { raw: state.raw, method: state.method }
+  { set: state.set, method: state.method }
 );
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    fetchRaw,
+    fetchSet,
   }, dispatch)
 );
 
 Available.propTypes = {
-  raw: PropTypes.shape({
+  set: PropTypes.shape({
     files: PropTypes.array.isRequired,
   }).isRequired,
   method: PropTypes.shape({
     options: PropTypes.array.isRequired,
     selected: PropTypes.number.isRequired,
   }).isRequired,
-  fetchRaw: PropTypes.func.isRequired,
+  fetchSet: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Available);
