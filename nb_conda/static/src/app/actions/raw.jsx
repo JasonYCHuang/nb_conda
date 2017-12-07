@@ -1,8 +1,8 @@
 import axios from 'axios';
 import updArrElement from '../helpers/utils_array';
 
-export const FETCH_RAW_FILES = 'fetch_raw_files';
-export const UPDATE_RAW_FILES = 'update_raw_files';
+export const FETCH_RAW = 'fetch_raw';
+export const UPDATE_RAW = 'update_raw';
 
 const hostUrl = '/chemotion_dl';
 
@@ -18,14 +18,14 @@ const convToTopMet = (getState) => {
 };
 
 const dpFlagAsProcessing = (dispatch, getState, target) => {
-  const { files } = getState().rawFile;
+  const { files } = getState().raw;
   const idx = files.findIndex(f => f.name === target);
   const updFile = Object.assign({}, files[idx], { status: 'processing' });
   const newFiles = updArrElement(files, idx, updFile);
-  dispatch({ type: UPDATE_RAW_FILES, payload: newFiles });
+  dispatch({ type: UPDATE_RAW, payload: newFiles });
 };
 
-const convertRawFile = (target) => {
+const convertRaw = (target) => {
   const baseUrl = `${hostUrl}/raw_files/convert`;
 
   return (dispatch, getState) => {
@@ -37,7 +37,7 @@ const convertRawFile = (target) => {
 
     request.then(({ data }) => {
       dispatch({
-        type: FETCH_RAW_FILES,
+        type: FETCH_RAW,
         payload: data.files,
       });
     }).catch((err) => {
@@ -46,7 +46,7 @@ const convertRawFile = (target) => {
   };
 };
 
-const fetchRawFiles = () => {
+const fetchRaw = () => {
   const baseUrl = `${hostUrl}/raw_files`;
 
   return (dispatch, getState) => {
@@ -56,7 +56,7 @@ const fetchRawFiles = () => {
 
     request.then(({ data }) => {
       dispatch({
-        type: FETCH_RAW_FILES,
+        type: FETCH_RAW,
         payload: data.files,
       });
     }).catch((err) => {
@@ -65,7 +65,7 @@ const fetchRawFiles = () => {
   };
 };
 
-const uploadRawFiles = (files) => {
+const uploadRaw = (files) => {
   const body = new FormData();
   files.forEach(f => body.append(f.id || f.name, f));
 
@@ -83,7 +83,7 @@ const uploadRawFiles = (files) => {
     const params = topic && method ? `?topic=${topic}&method=${method}` : '';
     axios.post(url + params, body, config).then(({ data }) => {
       dispatch({
-        type: FETCH_RAW_FILES,
+        type: FETCH_RAW,
         payload: data.files,
       });
     }).catch((err) => {
@@ -92,7 +92,7 @@ const uploadRawFiles = (files) => {
   };
 };
 
-const deleteRawFiles = (files) => {
+const deleteRaw = (files) => {
   const body = { files };
   const token = document.cookie.replace('_xsrf=', '');
   const url = `${hostUrl}/raw_files`;
@@ -108,7 +108,7 @@ const deleteRawFiles = (files) => {
     const params = topic && method ? `?topic=${topic}&method=${method}` : '';
     axios.put(url + params, body, config).then(({ data }) => {
       dispatch({
-        type: FETCH_RAW_FILES,
+        type: FETCH_RAW,
         payload: data.files,
       });
     }).catch((err) => {
@@ -117,4 +117,4 @@ const deleteRawFiles = (files) => {
   };
 };
 
-export { fetchRawFiles, uploadRawFiles, deleteRawFiles, convertRawFile };
+export { fetchRaw, uploadRaw, deleteRaw, convertRaw };

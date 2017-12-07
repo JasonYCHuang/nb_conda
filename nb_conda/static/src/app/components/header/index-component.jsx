@@ -5,7 +5,7 @@ import MD_ADD from '../constants/modal-add';
 
 const RenderAddDropDown = ({ onChange }) => {
   const onAddDLModel = () => onChange(MD_ADD.DL_MODEL);
-  const onAddRawFile = () => onChange(MD_ADD.RAW_FILE);
+  const onAddRaw = () => onChange(MD_ADD.RAW);
 
   return (
     <Dropdown id="add-dropdown" className="pull-right space-h-2">
@@ -18,7 +18,7 @@ const RenderAddDropDown = ({ onChange }) => {
           <i className="fa fa-magic space-h-5" />
           <span>Add Deep Learning Model</span>
         </MenuItem>
-        <MenuItem eventKey="2" onClick={onAddRawFile}>
+        <MenuItem eventKey="2" onClick={onAddRaw}>
           <i className="fa fa-database space-h-5" />
           <span>Add Raw File</span>
         </MenuItem>

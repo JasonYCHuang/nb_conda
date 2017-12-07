@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from 'react-bootstrap';
-import { convertRawFile } from '../../actions/raw-file';
+import { convertRaw } from '../../actions/raw';
 
 const ConvertBtn = (props) => {
   const onClick = () => {
     const msg = 'It takes time to convert a file. \n' +
       `Are you sure to convert '${props.name}'?`;
     if (confirm(msg)) {
-      props.convertRawFile(props.name);
+      props.convertRaw(props.name);
     }
   };
 
@@ -24,13 +24,13 @@ const ConvertBtn = (props) => {
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    convertRawFile,
+    convertRaw,
   }, dispatch)
 );
 
 ConvertBtn.propTypes = {
   name: PropTypes.string.isRequired,
-  convertRawFile: PropTypes.func.isRequired,
+  convertRaw: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(ConvertBtn);

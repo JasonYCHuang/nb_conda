@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
-import { fetchRawFiles } from '../../actions/raw-file';
+import { fetchRaw } from '../../actions/raw';
 import { RenderTable, RenderTitle } from './candidate-components';
 
 class CandidateSet extends Component {
@@ -19,45 +19,45 @@ class CandidateSet extends Component {
     const pMethod = this.props.method;
     const nMethod = nextProps.method;
     if (pMethod !== nMethod) {
-      this.props.fetchRawFiles();
+      this.props.fetchRaw();
     }
   }
 
   onRefresh() {
-    this.props.fetchRawFiles();
+    this.props.fetchRaw();
   }
 
   render() {
-    const { rawFile } = this.props;
+    const { raw } = this.props;
     const title = <RenderTitle onRefresh={this.onRefresh} />;
 
     return (
       <Panel header={title} className="candidate">
-        <RenderTable rows={rawFile.files} />
+        <RenderTable rows={raw.files} />
       </Panel>
     );
   }
 }
 
 const mapStateToProps = state => (
-  { rawFile: state.rawFile, method: state.method }
+  { raw: state.raw, method: state.method }
 );
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    fetchRawFiles,
+    fetchRaw,
   }, dispatch)
 );
 
 CandidateSet.propTypes = {
-  rawFile: PropTypes.shape({
+  raw: PropTypes.shape({
     files: PropTypes.array.isRequired,
   }).isRequired,
   method: PropTypes.shape({
     options: PropTypes.array.isRequired,
     selected: PropTypes.number.isRequired,
   }).isRequired,
-  fetchRawFiles: PropTypes.func.isRequired,
+  fetchRaw: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CandidateSet);

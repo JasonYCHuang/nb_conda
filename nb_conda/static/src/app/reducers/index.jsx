@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import SelectMethodReducer from './select-method';
-import RawFileReducer from './raw-file';
+import RawReducer from './raw';
 
 const rootReducer = combineReducers({
   method: SelectMethodReducer,
-  rawFile: RawFileReducer,
+  raw: RawReducer,
 });
 
 export default rootReducer;

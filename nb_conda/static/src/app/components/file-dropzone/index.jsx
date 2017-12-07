@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Dropzone from 'react-dropzone';
 import { Button } from 'react-bootstrap';
 
-import { uploadRawFiles } from '../../actions/raw-file';
+import { uploadRaw } from '../../actions/raw';
 
 class FileDropzone extends Component {
   constructor(props) {
@@ -14,8 +14,8 @@ class FileDropzone extends Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
-  onDrop(acceptedFiles) {
-    this.props.uploadRawFiles(acceptedFiles);
+  onDrop(accepteds) {
+    this.props.uploadRaw(accepteds);
   }
 
   render() {
@@ -34,11 +34,11 @@ const mapStateToProps = () => (
 );
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators({ uploadRawFiles }, dispatch)
+  bindActionCreators({ uploadRaw }, dispatch)
 );
 
 FileDropzone.propTypes = {
-  uploadRawFiles: PropTypes.func.isRequired,
+  uploadRaw: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FileDropzone);
