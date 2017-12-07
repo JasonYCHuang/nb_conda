@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tab, Row, Col, Nav, NavItem } from 'react-bootstrap';
-import LearningSet from '../learning-set';
+import Preprocessing from '../preprocessing';
 
 const Content = () => (
   <Tab.Container defaultActiveKey={0} id="content-tabs" >
@@ -9,7 +9,7 @@ const Content = () => (
         <Nav bsStyle="pills" stacked>
           <NavItem eventKey={0}>
             <i className="fa fa-database" />
-            <span className="text-tab-stage" >Learning Set</span>
+            <span className="text-tab-stage" >Preprocessing</span>
           </NavItem>
           <NavItem eventKey={1}>
             <i className="fa fa-magic" />
@@ -24,7 +24,7 @@ const Content = () => (
       <Col sm={9}>
         <Tab.Content animation>
           <Tab.Pane eventKey={0}>
-            <LearningSet />
+            <Preprocessing />
           </Tab.Pane>
           <Tab.Pane eventKey={1}>
             Tab 2 content

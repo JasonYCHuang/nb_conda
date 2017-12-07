@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
 import { fetchRaw } from '../../actions/raw';
-import { RenderTable, RenderTitle } from './candidate-components';
+import { RenderTable, RenderTitle } from './available-components';
 
-class CandidateSet extends Component {
+class Available extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ class CandidateSet extends Component {
     const title = <RenderTitle onRefresh={this.onRefresh} />;
 
     return (
-      <Panel header={title} className="candidate">
+      <Panel header={title} className="available">
         <RenderTable rows={raw.files} />
       </Panel>
     );
@@ -49,7 +49,7 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-CandidateSet.propTypes = {
+Available.propTypes = {
   raw: PropTypes.shape({
     files: PropTypes.array.isRequired,
   }).isRequired,
@@ -60,4 +60,4 @@ CandidateSet.propTypes = {
   fetchRaw: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CandidateSet);
+export default connect(mapStateToProps, mapDispatchToProps)(Available);
