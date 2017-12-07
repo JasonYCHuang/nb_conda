@@ -9,52 +9,33 @@ rd_folder = '/data'
 class SetFile():
     def list_files(self, topic, method):
         db_path, project_path, _ = generate_paths(topic, method, '', '')
-        file_names = os.listdir(workspace + rd_folder)
-        engine = init_engine(db_path)
-        return self.__files_property(file_names, engine, project_path)
+        file_names = os.listdir(project_path + '/pickle')
+        return self.__files_property(file_names, project_path)
 
-    def save_files(self, request):
-        for _, value in request.files.items():
-            file = value[0]
-            file_name = file['filename']
-            file_path = workspace + rd_folder + '/' + file_name
-            output_file = open(file_path, 'wb')
-            output_file.write(file['body'])
-
-    def delete_files(self, json):
-        for fn in json['files']:
-            file_path = workspace + rd_folder + '/' + fn
-            os.remove(file_path)
-
-    def __files_property(self, names, engine, project_path):
+    def __files_property(self, names, project_path):
         list_dir = []
         list_file = []
         for fn in names:
             if not fn.startswith('.'):
-                fp = self.__file_property(fn, engine, project_path)
+                fp = self.__file_property(fn, project_path)
                 list_dir.append(fp) if fp['isDir'] else list_file.append(fp)
         return list_dir + list_file
-
-    def __path(self, file):
-        return workspace + rd_folder + '/' + file
 
     def __pickle_path(self, target, project_path):
         return project_path + '/pickle/' + target + '.pickle'
 
-    def __file_property(self, file, engine, project_path):
-        path = self.__path(file)
+    def __file_property(self, file, project_path):
+        path = project_path + '/pickle/' + file
         is_dir = os.path.isdir(path)
         fp = os.stat(path)
         size = self.__readable_byte(fp.st_size)
         mt = os.path.getmtime(path)
         m_time = self.__pretty_time(mt)
-        status = self.__yield_status(file, engine, project_path)
         return {
             'name': file,
             'isDir': is_dir, 
             'size': size,
             'modifiedAt': m_time,
-            'status': status,
         }
 
     def __yield_status(self, file, engine, project_path):

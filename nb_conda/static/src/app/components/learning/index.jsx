@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
 import { fetchSet } from '../../actions/set';
-import { RenderTable, RenderTitle } from './available-components';
+import { RenderTable, RenderTitle } from './components';
 
-class Available extends Component {
+class Learning extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ class Available extends Component {
     const title = <RenderTitle onRefresh={this.onRefresh} />;
 
     return (
-      <Panel header={title} className="available">
+      <Panel header={title} className="learning">
         <RenderTable rows={set.files} />
       </Panel>
     );
@@ -49,7 +49,7 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-Available.propTypes = {
+Learning.propTypes = {
   set: PropTypes.shape({
     files: PropTypes.array.isRequired,
   }).isRequired,
@@ -60,4 +60,4 @@ Available.propTypes = {
   fetchSet: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Available);
+export default connect(mapStateToProps, mapDispatchToProps)(Learning);

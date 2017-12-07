@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button } from 'react-bootstrap';
-import ConvertBtn from './convert-btn';
+import ConvertBtn from '../preprocessing/convert-btn';
 
 const iconTyp = isDir => (
   isDir
