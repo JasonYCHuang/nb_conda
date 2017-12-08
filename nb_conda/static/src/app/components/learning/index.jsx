@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
 import { fetchSet } from '../../actions/set';
+import { convertModel } from '../../actions/model';
 import { RenderTable, RenderTitle, ModelForm } from './components';
 
 class Learning extends Component {
@@ -19,6 +20,8 @@ class Learning extends Component {
     this.onToggleCheck = this.onToggleCheck.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
     this.onDescChange = this.onDescChange.bind(this);
+    this.renderTitle = this.renderTitle.bind(this);
+    this.onGenerate = this.onGenerate.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,10 +57,28 @@ class Learning extends Component {
     this.setState({ description: e.target.value });
   }
 
+  onGenerate() {
+    const { name, ckdItems, description } = this.state;
+    this.props.convertModel(name, description, ckdItems);
+  }
+
+  renderTitle() {
+    const { name, ckdItems } = this.state;
+    const canGenerate = ckdItems.length !== 0 && name !== '';
+
+    return (
+      <RenderTitle
+        canGenerate={canGenerate}
+        onRefresh={this.onRefresh}
+        onGenerate={this.onGenerate}
+      />
+    );
+  }
+
   render() {
     const { set } = this.props;
     const { name, description } = this.state;
-    const title = <RenderTitle onRefresh={this.onRefresh} />;
+    const title = this.renderTitle();
 
     return (
       <Panel header={title} className="learning">
@@ -84,6 +105,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     fetchSet,
+    convertModel,
   }, dispatch)
 );
 
@@ -96,6 +118,7 @@ Learning.propTypes = {
     selected: PropTypes.number.isRequired,
   }).isRequired,
   fetchSet: PropTypes.func.isRequired,
+  convertModel: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Learning);

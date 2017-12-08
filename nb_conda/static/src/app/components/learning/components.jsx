@@ -37,7 +37,7 @@ const RenderTable = ({ rows, onToggleCheck }) => {
   );
 };
 
-const RenderTitle = ({ onRefresh }) => (
+const RenderTitle = ({ canGenerate, onGenerate, onRefresh }) => (
   <div>
     <span>Generate model</span>
     <Button
@@ -49,6 +49,8 @@ const RenderTitle = ({ onRefresh }) => (
     <Button
       bsStyle="primary"
       className="space-h-2 btn-right btn-panel-middle"
+      onClick={onGenerate}
+      disabled={!canGenerate}
     >
       <i className="fa fa-magic" />
       <span>  Generate</span>
@@ -93,6 +95,8 @@ RenderTable.propTypes = {
 
 RenderTitle.propTypes = {
   onRefresh: PropTypes.func.isRequired,
+  onGenerate: PropTypes.func.isRequired,
+  canGenerate: PropTypes.bool.isRequired,
 };
 
 export { RenderTable, RenderTitle, ModelForm };
