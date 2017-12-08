@@ -6,10 +6,6 @@ class ModelFile():
         model = json_body['model']
         topic = request.headers.get('topic')
         method = request.headers.get('method')
-        print("- - - - -- - - - - -")
-        
-        # 
-        print(model)
-        print(topic)
-        print(method)
+
+
 
