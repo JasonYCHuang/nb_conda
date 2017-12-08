@@ -1,15 +1,14 @@
 import { CONVERT_MODEL } from '../actions/model';
 
 const defaultState = {
-  objs: [],
+  files: [],
 };
 
 const ModelReducer = (state = defaultState, action) => {
   switch (action.type) {
     case CONVERT_MODEL:
-    console.log(action.payload)
       return Object.assign({}, state, {
-        objs: [...state, action.payload],
+        files: [...state.files, action.payload],
       });
     default:
       return state;

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
 import { fetchSet } from '../../actions/set';
 import { convertModel } from '../../actions/model';
-import { RenderTable, RenderTitle, ModelForm } from './components';
+import { RenderTable, RenderTitle, FormModel } from './components';
 
 class Learning extends Component {
   constructor(props) {
@@ -82,7 +82,7 @@ class Learning extends Component {
 
     return (
       <Panel header={title} className="learning">
-        <ModelForm
+        <FormModel
           name={name}
           description={description}
           onNameChange={this.onNameChange}

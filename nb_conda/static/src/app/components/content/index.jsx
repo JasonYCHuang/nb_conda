@@ -2,6 +2,7 @@ import React from 'react';
 import { Tab, Row, Col, Nav, NavItem } from 'react-bootstrap';
 import Preprocessing from '../preprocessing';
 import Learning from '../learning';
+import Prediction from '../Prediction';
 
 const Content = () => (
   <Tab.Container defaultActiveKey={0} id="content-tabs" >
@@ -14,7 +15,7 @@ const Content = () => (
           </NavItem>
           <NavItem eventKey={1}>
             <i className="fa fa-magic" />
-            <span className="text-tab-stage" >Deep Learning</span>
+            <span className="text-tab-stage" >Learning</span>
           </NavItem>
           <NavItem eventKey={2}>
             <i className="fa fa-child" />
@@ -31,7 +32,7 @@ const Content = () => (
             <Learning />
           </Tab.Pane>
           <Tab.Pane eventKey={2}>
-            Tab 2 content
+            <Prediction />
           </Tab.Pane>
         </Tab.Content>
       </Col>

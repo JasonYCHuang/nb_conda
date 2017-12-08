@@ -58,7 +58,7 @@ const RenderTitle = ({ canGenerate, onGenerate, onRefresh }) => (
   </div>
 );
 
-const ModelForm = ({
+const FormModel = ({
   name, description, onNameChange, onDescChange,
 }) => (
   <form>
@@ -81,7 +81,7 @@ const ModelForm = ({
   </form>
 );
 
-ModelForm.propTypes = {
+FormModel.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   onNameChange: PropTypes.func.isRequired,
@@ -99,4 +99,4 @@ RenderTitle.propTypes = {
   canGenerate: PropTypes.bool.isRequired,
 };
 
-export { RenderTable, RenderTitle, ModelForm };
+export { RenderTable, RenderTitle, FormModel };
