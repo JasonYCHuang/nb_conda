@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button } from 'react-bootstrap';
-import ConvertBtn from '../preprocessing/convert-btn';
 
 const iconTyp = isDir => (
   isDir
@@ -9,36 +8,11 @@ const iconTyp = isDir => (
     : <i className="fa fa-file-text-o" />
 );
 
-const processingBtn = () => (
-  <Button className="w-110" disabled>
-    <i className="fa fa-cogs space-h-5" />
-    <span>Processing</span>
-  </Button>
-);
-
-const availableBtn = () => (
-  <Button bsStyle="success" className="w-110" disabled>
-    <i className="fa fa-check-circle-o space-h-5" />
-    <span>Available</span>
-  </Button>
-);
-
-const statusBtn = (file) => {
-  switch (file.status) {
-    case 'available':
-      return availableBtn();
-    case 'processing':
-      return processingBtn();
-    default:
-      return <ConvertBtn name={file.name} />;
-  }
-};
-
-const renderRows = rows => (
+const renderRows = (rows, onToggleCheck) => (
   rows.map((r, idx) => (
     <tr key={`${r.name}-${idx}`} >
-      <td className="w-120">
-        { statusBtn(r) }
+      <td className="pull-center">
+        <input type="checkbox" onChange={onToggleCheck} value={r.name} />
       </td>
       <td>
         <span className="space-h-5">{iconTyp(r.isDir)}</span>
@@ -50,10 +24,10 @@ const renderRows = rows => (
   ))
 );
 
-const RenderTable = ({ rows }) => {
+const RenderTable = ({ rows, onToggleCheck }) => {
   const content = rows.length === 0
     ? <tr><td>No file founded</td></tr>
-    : renderRows(rows);
+    : renderRows(rows, onToggleCheck);
 
   return (
     <Table striped hover className="brd-all">
@@ -64,18 +38,26 @@ const RenderTable = ({ rows }) => {
 
 const RenderTitle = ({ onRefresh }) => (
   <div>
-    <span>Available Set</span>
+    <span>Learning Set</span>
     <Button
-      className="space-h-5 btn-icon-only btn-right btn-panel-middle"
+      className="btn-right btn-panel-middle"
       onClick={onRefresh}
     >
       <i className="fa fa-refresh" />
+    </Button>
+    <Button
+      bsStyle="primary"
+      className="space-h-2 btn-right btn-panel-middle"
+    >
+      <i className="fa fa-magic" />
+      <span>  Generate model</span>
     </Button>
   </div>
 );
 
 RenderTable.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onToggleCheck: PropTypes.func.isRequired,
 };
 
 RenderTitle.propTypes = {

@@ -10,9 +10,11 @@ class Learning extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      ckdItems: [],
     };
 
     this.onRefresh = this.onRefresh.bind(this);
+    this.onToggleCheck = this.onToggleCheck.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,13 +29,29 @@ class Learning extends Component {
     this.props.fetchSet();
   }
 
+  onToggleCheck(e) {
+    const item = e.target.value;
+    const cis = this.state.ckdItems;
+    const idx = cis.indexOf(item);
+    if (idx === -1) {
+      this.setState({ ckdItems: [...cis, item] });
+    } else {
+      this.setState({
+        ckdItems: [...cis.slice(0, idx), ...cis.slice(idx + 1)],
+      });
+    }
+  }
+
   render() {
     const { set } = this.props;
     const title = <RenderTitle onRefresh={this.onRefresh} />;
 
     return (
       <Panel header={title} className="learning">
-        <RenderTable rows={set.files} />
+        <RenderTable
+          rows={set.files}
+          onToggleCheck={this.onToggleCheck}
+        />
       </Panel>
     );
   }
