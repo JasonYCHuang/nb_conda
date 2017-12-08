@@ -4,17 +4,21 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
 import { fetchSet } from '../../actions/set';
-import { RenderTable, RenderTitle } from './components';
+import { RenderTable, RenderTitle, ModelForm } from './components';
 
 class Learning extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ckdItems: [],
+      name: '',
+      description: '',
     };
 
     this.onRefresh = this.onRefresh.bind(this);
     this.onToggleCheck = this.onToggleCheck.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onDescChange = this.onDescChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,12 +46,28 @@ class Learning extends Component {
     }
   }
 
+  onNameChange(e) {
+    this.setState({ name: e.target.value });
+  }
+
+  onDescChange(e) {
+    this.setState({ description: e.target.value });
+  }
+
   render() {
     const { set } = this.props;
+    const { name, description } = this.state;
     const title = <RenderTitle onRefresh={this.onRefresh} />;
 
     return (
       <Panel header={title} className="learning">
+        <ModelForm
+          name={name}
+          description={description}
+          onNameChange={this.onNameChange}
+          onDescChange={this.onDescChange}
+        />
+        <div>Available Set</div>
         <RenderTable
           rows={set.files}
           onToggleCheck={this.onToggleCheck}

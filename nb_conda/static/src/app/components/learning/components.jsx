@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, FormGroup, ControlLabel,
+  FormControl } from 'react-bootstrap';
 
 const iconTyp = isDir => (
   isDir
@@ -38,7 +39,7 @@ const RenderTable = ({ rows, onToggleCheck }) => {
 
 const RenderTitle = ({ onRefresh }) => (
   <div>
-    <span>Learning Set</span>
+    <span>Generate model</span>
     <Button
       className="btn-right btn-panel-middle"
       onClick={onRefresh}
@@ -50,10 +51,40 @@ const RenderTitle = ({ onRefresh }) => (
       className="space-h-2 btn-right btn-panel-middle"
     >
       <i className="fa fa-magic" />
-      <span>  Generate model</span>
+      <span>  Generate</span>
     </Button>
   </div>
 );
+
+const ModelForm = ({
+  name, description, onNameChange, onDescChange,
+}) => (
+  <form>
+    <FormGroup controlId="model-form-name">
+      <ControlLabel>Model Name</ControlLabel>
+      <FormControl
+        type="text"
+        onChange={onNameChange}
+        value={name}
+      />
+    </FormGroup>
+    <FormGroup controlId="model-form-desc">
+      <ControlLabel>Description</ControlLabel>
+      <FormControl
+        componentClass="textarea"
+        onChange={onDescChange}
+        value={description}
+      />
+    </FormGroup>
+  </form>
+);
+
+ModelForm.propTypes = {
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  onNameChange: PropTypes.func.isRequired,
+  onDescChange: PropTypes.func.isRequired,
+};
 
 RenderTable.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -64,4 +95,4 @@ RenderTitle.propTypes = {
   onRefresh: PropTypes.func.isRequired,
 };
 
-export { RenderTable, RenderTitle };
+export { RenderTable, RenderTitle, ModelForm };
