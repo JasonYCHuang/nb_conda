@@ -7,10 +7,10 @@ const renderRows = rows => (
     {
       rows.map((row, idx) => (
         <Panel header={row.name} eventKey={idx}>
-          <h4><u>Source</u></h4>
+          <h5><u>Source</u></h5>
           {row.ckdItems.map(itm => <div className="space-h-10">{itm}</div>)}
           <br />
-          <h4><u>Description</u></h4>
+          <h5><u>Description</u></h5>
           <div className="space-h-10">
             {row.description}
           </div>
