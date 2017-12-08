@@ -1,4 +1,4 @@
-import { CONVERT_MODEL } from '../actions/model';
+import { FETCH_MODEL, UPDATE_MODEL } from '../actions/model';
 
 const defaultState = {
   files: [],
@@ -6,7 +6,8 @@ const defaultState = {
 
 const ModelReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case CONVERT_MODEL:
+    case FETCH_MODEL:
+    case UPDATE_MODEL:
       return Object.assign({}, state, {
         files: [...state.files, action.payload],
       });
