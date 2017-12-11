@@ -2,11 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, PanelGroup, Panel } from 'react-bootstrap';
 
+const rowHeader = (row) => {
+  const { name } = row;
+  return (
+    <div>
+      <span>{name}</span>
+    </div>
+  );
+};
+
 const renderRows = rows => (
   <PanelGroup accordion>
     {
       rows.map((row, idx) => (
-        <Panel header={row.name} eventKey={idx}>
+        <Panel header={rowHeader(row)} eventKey={idx}>
           <h5><u>Source</u></h5>
           {row.ckdItems.map(itm => <div className="space-h-10">{itm}</div>)}
           <br />
