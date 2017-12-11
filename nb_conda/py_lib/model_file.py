@@ -2,8 +2,6 @@ import os
 from .lib.run_cmd import *
 from .manager import *
 
-workspace = '/Users/jason/workspace/python/dl-platform'
-
 class ModelFile():
 	def list_files(self, topic, method):
 		project_path, model_path = generate_model_paths(topic, method)

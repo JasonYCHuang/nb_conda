@@ -30,7 +30,11 @@ const rowContent = (row, disableBtn, onPredict, idx) => {
   if (row.status === 'converting') return null;
 
   return (
-    <Panel header={rowHeader(row, disableBtn, onPredict)} eventKey={idx}>
+    <Panel
+      header={rowHeader(row, disableBtn, onPredict)}
+      eventKey={idx}
+      key={idx}
+    >
       <h5><u>Source</u></h5>
       {row.ckdItems.map(itm => <div className="space-h-10">{itm}</div>)}
       <br />

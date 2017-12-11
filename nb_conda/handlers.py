@@ -27,6 +27,7 @@ from .py_lib.raw_file import RawFile
 from .py_lib.set_file import SetFile
 from .py_lib.model_file import ModelFile
 from .py_lib.convert import Convert
+from .py_lib.prediction import Prediction
 
 NS = r'chemotion_dl'
 
@@ -50,6 +51,10 @@ class BaseHandler(APIHandler):
     @property
     def convert(self):
         return self.settings['convert']
+
+    @property
+    def prediction(self):
+        return self.settings['prediction']
 
 class SelectMethodHandler(BaseHandler):
     @web.authenticated
@@ -114,6 +119,14 @@ class ModelFileHandler(BaseHandler):
         method = self.get_argument("method", None)
         self.model_file.convert(self.get_json_body(), topic, method)
 
+class PredictionHandler(BaseHandler):
+    @web.authenticated
+    @gen.coroutine
+    def post(self):
+        topic = self.get_argument("topic", None)
+        method = self.get_argument("method", None)
+        self.prediction.run(self.get_json_body(), topic, method)
+
 # -----------------------------------------------------------------------------
 # URL to handler mappings
 # -----------------------------------------------------------------------------
@@ -124,6 +137,7 @@ default_handlers = [
     (r"/raw_files", RawFileHandler),
     (r"/set_files", SetFileHandler),
     (r"/model_files", ModelFileHandler),
+    (r"/predictions", PredictionHandler),
 ]
 
 def load_jupyter_server_extension(nbapp):
@@ -133,6 +147,7 @@ def load_jupyter_server_extension(nbapp):
     webapp.settings['set_file'] = SetFile()
     webapp.settings['model_file'] = ModelFile()
     webapp.settings['convert'] = Convert()
+    webapp.settings['prediction'] = Prediction()
 
     base_url = webapp.settings['base_url']
     webapp.add_handlers(".*$", [

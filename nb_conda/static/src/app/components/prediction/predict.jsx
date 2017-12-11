@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
 import { RenderList, RenderTitle, FormPredict } from './predict-components';
 import { fetchModel } from '../../actions/model';
+import { makePrediction } from '../../actions/prediction';
 
 class Predict extends Component {
   constructor(props) {
@@ -36,10 +37,9 @@ class Predict extends Component {
 
   onPredict(e, model) {
     e.stopPropagation();
+
     const { smiles } = this.state;
-    console.log('- -- - - - - - -')
-    console.log(smiles)
-    console.log(model)
+    this.props.makePrediction(model, smiles);
   }
 
   render() {
@@ -71,6 +71,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     fetchModel,
+    makePrediction,
   }, dispatch)
 );
 
@@ -83,6 +84,7 @@ Predict.propTypes = {
     selected: PropTypes.number.isRequired,
   }).isRequired,
   fetchModel: PropTypes.func.isRequired,
+  makePrediction: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Predict);
