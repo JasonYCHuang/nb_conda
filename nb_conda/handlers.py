@@ -102,6 +102,13 @@ class ConvertHandler(BaseHandler):
 class ModelFileHandler(BaseHandler):
     @web.authenticated
     @gen.coroutine
+    def get(self):
+        topic = self.get_argument("topic", None)
+        method = self.get_argument("method", None)
+        self.finish(json.dumps({ 'files': self.model_file.list_files(topic, method) }))
+
+    @web.authenticated
+    @gen.coroutine
     def post(self):
         topic = self.get_argument("topic", None)
         method = self.get_argument("method", None)

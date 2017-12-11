@@ -7,6 +7,9 @@ const defaultState = {
 const ModelReducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_MODEL:
+      return Object.assign({}, state, {
+        files: action.payload,
+      });
     case UPDATE_MODEL:
       return Object.assign({}, state, {
         files: [...state.files, action.payload],

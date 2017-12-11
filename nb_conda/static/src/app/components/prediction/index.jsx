@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
 import { RenderList, RenderTitle } from './components';
+import { fetchModel } from '../../actions/model';
 
 class Prediction extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Prediction extends Component {
   }
 
   onRefresh() {
-    // TBD
+    this.props.fetchModel();
   }
 
   render() {
@@ -38,6 +39,7 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
+    fetchModel,
   }, dispatch)
 );
 
@@ -45,6 +47,7 @@ Prediction.propTypes = {
   model: PropTypes.shape({
     files: PropTypes.array.isRequired,
   }).isRequired,
+  fetchModel: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Prediction);
