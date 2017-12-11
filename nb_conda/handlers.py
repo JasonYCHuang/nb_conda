@@ -103,7 +103,9 @@ class ModelFileHandler(BaseHandler):
     @web.authenticated
     @gen.coroutine
     def post(self):
-        self.model_file.convert(self.get_json_body(), self.request)
+        topic = self.get_argument("topic", None)
+        method = self.get_argument("method", None)
+        self.model_file.convert(self.get_json_body(), topic, method)
 
 # -----------------------------------------------------------------------------
 # URL to handler mappings

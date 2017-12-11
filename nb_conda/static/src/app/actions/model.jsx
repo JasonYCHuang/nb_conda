@@ -10,7 +10,7 @@ const dpAddModel = (dispatch, model) => {
   dispatch({ type: UPDATE_MODEL, payload: model });
 };
 
-const convertModel = (name, description, ckdItems) => {
+const learnModel = (name, description, ckdItems) => {
   const baseUrl = `${hostUrl}/model_files`;
   const token = document.cookie.replace('_xsrf=', '');
   const model = {
@@ -21,16 +21,15 @@ const convertModel = (name, description, ckdItems) => {
     dpAddModel(dispatch, model);
 
     const [topic, method] = convToTopMet(getState);
+    const params = `?topic=${topic}&method=${method}`;
     const body = { model };
     const config = {
       headers: {
         'X-CSRFToken': token,
         'Content-Type': 'application/json',
-        topic,
-        method,
       },
     };
-    const request = axios.post(baseUrl, body, config);
+    const request = axios.post(baseUrl + params, body, config);
 
     request.then(({ data }) => {
       // dispatch({
@@ -43,4 +42,4 @@ const convertModel = (name, description, ckdItems) => {
   };
 };
 
-export { convertModel };
+export { learnModel };

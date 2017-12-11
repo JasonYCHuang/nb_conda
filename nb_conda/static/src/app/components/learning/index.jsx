@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Panel } from 'react-bootstrap';
 import { fetchSet } from '../../actions/set';
-import { convertModel } from '../../actions/model';
+import { learnModel } from '../../actions/model';
 import { RenderTable, RenderTitle, FormModel } from './components';
 
 class Learning extends Component {
@@ -59,7 +59,7 @@ class Learning extends Component {
 
   onGenerate() {
     const { name, ckdItems, description } = this.state;
-    this.props.convertModel(name, description, ckdItems);
+    this.props.learnModel(name, description, ckdItems);
   }
 
   renderTitle() {
@@ -105,7 +105,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     fetchSet,
-    convertModel,
+    learnModel,
   }, dispatch)
 );
 
@@ -118,7 +118,7 @@ Learning.propTypes = {
     selected: PropTypes.number.isRequired,
   }).isRequired,
   fetchSet: PropTypes.func.isRequired,
-  convertModel: PropTypes.func.isRequired,
+  learnModel: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Learning);
