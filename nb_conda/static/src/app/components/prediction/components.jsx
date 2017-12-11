@@ -2,11 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, PanelGroup, Panel } from 'react-bootstrap';
 
+const processingBtn = () => (
+  <Button className="w-110" disabled>
+    <i className="fa fa-cogs space-h-5" />
+    <span>Processing</span>
+  </Button>
+);
+
+const availableBtn = () => (
+  <Button bsStyle="success" className="w-110" disabled>
+    <i className="fa fa-check-circle-o space-h-5" />
+    <span>Available</span>
+  </Button>
+);
+
+const statusBtn = (status) => {
+  switch (status) {
+    case 'available':
+      return availableBtn();
+    default:
+      return processingBtn();
+  }
+};
+
 const rowHeader = (row) => {
-  const { name } = row;
+  const { name, status } = row;
   return (
     <div>
-      <span>{name}</span>
+      { statusBtn(status) }
+      <span className="space-h-10">{name}</span>
     </div>
   );
 };

@@ -15,6 +15,14 @@ class Prediction extends Component {
     this.onRefresh = this.onRefresh.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const pMethod = this.props.method;
+    const nMethod = nextProps.method;
+    if (pMethod !== nMethod) {
+      this.props.fetchModel();
+    }
+  }
+
   onRefresh() {
     this.props.fetchModel();
   }
@@ -34,7 +42,7 @@ class Prediction extends Component {
 }
 
 const mapStateToProps = state => (
-  { model: state.model }
+  { model: state.model, method: state.method }
 );
 
 const mapDispatchToProps = dispatch => (
@@ -46,6 +54,10 @@ const mapDispatchToProps = dispatch => (
 Prediction.propTypes = {
   model: PropTypes.shape({
     files: PropTypes.array.isRequired,
+  }).isRequired,
+  method: PropTypes.shape({
+    options: PropTypes.array.isRequired,
+    selected: PropTypes.number.isRequired,
   }).isRequired,
   fetchModel: PropTypes.func.isRequired,
 };
