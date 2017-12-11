@@ -30,8 +30,8 @@ class ModelFile():
 		}
 
 	def convert(self, json_body, topic, method):
+		project_path, _ = generate_model_paths(topic, method)
 		model = json_body['model']
-		project_path = workspace + "/tp_%s/mt_%s" % (topic, method)
 		executor = project_path + "/lib/learning/main.py"
 
 		cmd = [
