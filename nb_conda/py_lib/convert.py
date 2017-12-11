@@ -30,6 +30,7 @@ class Convert():
 		self.__load_csv_to_db(engine, target, csv_path)
 		self.__mapping(engine, target, project_path)
 		self.__pickle(engine, target, project_path)
+		self.__rm_table_db(engine, target, db_path)
 
 	def __db_exits(self, engine, db_path):
 		if not os.path.exists(db_path):
@@ -46,6 +47,11 @@ class Convert():
 			con.execute(text(text_create_table))
 			con.execute(text(text_index))
 			# FOREIGN KEY centre_id
+
+	def __rm_table_db(self, engine, target, db_path):
+		text_drop = 'DROP TABLE IF EXISTS %s' % target
+		with engine.connect() as con:
+			con.execute(text(text_drop))
 
 	def __load_csv_to_db(self, engine, target, csv_path):
 		df_t = pd.read_csv(csv_path, header=None)

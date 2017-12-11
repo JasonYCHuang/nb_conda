@@ -118,6 +118,7 @@ class ModelFileHandler(BaseHandler):
         topic = self.get_argument("topic", None)
         method = self.get_argument("method", None)
         self.model_file.convert(self.get_json_body(), topic, method)
+        self.finish(json.dumps({ 'files': self.model_file.list_files(topic, method) }))
 
 class PredictionHandler(BaseHandler):
     @web.authenticated

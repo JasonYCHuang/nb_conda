@@ -32,10 +32,10 @@ const learnModel = (name, description, ckdItems) => {
     const request = axios.post(baseUrl + params, body, config);
 
     request.then(({ data }) => {
-      // dispatch({
-      //   type: FETCH_MODEL,
-      //   payload: data.files,
-      // });
+      dispatch({
+        type: FETCH_MODEL,
+        payload: data.files,
+      });
     }).catch((err) => {
       console.log(err);
     });

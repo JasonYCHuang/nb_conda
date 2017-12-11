@@ -17,5 +17,3 @@ class Prediction():
 			smiles
 		]
 		result = RunCmd(cmd, 1200).Run()
-		print('- -- - - - ')
-		print(result)
