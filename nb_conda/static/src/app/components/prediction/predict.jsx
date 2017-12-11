@@ -11,7 +11,7 @@ class Predict extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      smiles: '',
+      smiles: 'BrC1=CC=CC=C1.CCOC(=O)C=C>>',
     };
 
     this.onRefresh = this.onRefresh.bind(this);

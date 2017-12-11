@@ -50,6 +50,7 @@ class Convert():
 
 	def __rm_table_db(self, engine, target, db_path):
 		text_drop = 'DROP TABLE IF EXISTS %s' % target
+		print(text_drop)
 		with engine.connect() as con:
 			con.execute(text(text_drop))
 
